@@ -6,29 +6,37 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class LoginController {
+    private String username, password;
     @FXML
-    protected void onRegisterButtonClick(ActionEvent event) {
-        try {
-            // Load the new FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("register.fxml"));
-            Parent root = loader.load();
+    private TextField usernameField;
+    @FXML
+    private PasswordField passwordField;
 
-            // Get the current stage
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    @FXML
+    protected void onLoginButtonClick(ActionEvent event) throws IOException {
+        username = usernameField.getText();
+        password = passwordField.getText();
 
-            // Set the new scene
-            stage.setScene(new Scene(root, 1280, 768)); // Set desired dimensions
-            stage.setTitle("Register");
+        // Handle authentication logic here
+    }
 
-            // Show the updated stage
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @FXML
+    protected void onRegisterButtonClick(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("register.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        stage.setScene(new Scene(root, 1280, 768)); // Set desired dimensions
+        stage.setTitle("Register");
+
+        stage.show();
     }
 }

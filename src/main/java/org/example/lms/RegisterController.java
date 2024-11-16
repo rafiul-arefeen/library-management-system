@@ -6,11 +6,40 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
 
+import javafx.scene.control.TextField;
 import java.io.IOException;
 
 public class RegisterController {
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String username;
+    private String password;
+    @FXML
+    private TextField firstNameField;
+    @FXML
+    private TextField lastNameField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private PasswordField passwordField;
+
+    @FXML
+    protected void onRegisterButtonClick(ActionEvent event) throws IOException {
+        firstName = firstNameField.getText();
+        lastName = lastNameField.getText();
+        email = emailField.getText();
+        username = usernameField.getText();
+        password = passwordField.getText();
+
+        // Handle adding new user logic here
+    }
+
     @FXML
     protected void onLoginButtonClick(ActionEvent event) {
         try {

@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.PasswordField?>
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.lms.RegisterController">
     <children>
         <AnchorPane prefHeight="768.0" prefWidth="640.0" style="-fx-background-color: FCDC94;">
@@ -27,14 +28,14 @@
         </AnchorPane>
         <AnchorPane prefHeight="768.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
             <children>
-                <TextField layoutX="93.0" layoutY="291.0" prefHeight="54.0" prefWidth="460.0" promptText="Email" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0">
+                <TextField fx:id="firstNameField" layoutX="90.0" layoutY="225.0" prefHeight="54.0" prefWidth="220.0" promptText="First Name" AnchorPane.leftAnchor="90.0">
                     <font>
                         <Font name="Poppins Regular" size="24.0" />
                     </font></TextField>
-                <TextField layoutX="92.0" layoutY="423.0" prefHeight="54.0" prefWidth="460.0" promptText="Password" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0">
+                <PasswordField fx:id="passwordField" layoutX="92.0" layoutY="423.0" prefHeight="54.0" prefWidth="460.0" promptText="Password" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0">
                     <font>
                         <Font name="Poppins Regular" size="24.0" />
-                    </font></TextField>
+                    </font></PasswordField>
                 <Button layoutX="276.0" layoutY="654.0" mnemonicParsing="false" onAction="#onLoginButtonClick" text="Login" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="270.0">
                     <font>
                         <Font name="Poppins SemiBold" size="24.0" />
@@ -50,22 +51,22 @@
                         <Font name="Poppins SemiBold" size="18.0" />
                     </font>
                 </Label>
-                <Button layoutX="254.0" layoutY="494.0" mnemonicParsing="false" text="Register" AnchorPane.leftAnchor="252.0" AnchorPane.rightAnchor="252.0">
+                <Button layoutX="254.0" layoutY="494.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" text="Register" AnchorPane.leftAnchor="252.0" AnchorPane.rightAnchor="252.0">
                     <font>
                         <Font name="Poppins SemiBold" size="24.0" />
                     </font>
                 </Button>
-                <TextField layoutX="95.0" layoutY="225.0" prefHeight="54.0" prefWidth="220.0" promptText="First Name" AnchorPane.leftAnchor="90.0">
+                <TextField fx:id="emailField" layoutX="90.0" layoutY="290.0" prefHeight="54.0" prefWidth="460.0" promptText="Email" AnchorPane.leftAnchor="90.0">
                     <font>
                         <Font name="Poppins Regular" size="24.0" />
                     </font>
                 </TextField>
-                <TextField layoutX="332.0" layoutY="225.0" prefHeight="54.0" prefWidth="220.0" promptText="Last Name" AnchorPane.rightAnchor="90.0">
+                <TextField fx:id="lastNameField" layoutX="332.0" layoutY="225.0" prefHeight="54.0" prefWidth="220.0" promptText="Last Name" AnchorPane.rightAnchor="90.0">
                     <font>
                         <Font name="Poppins Regular" size="24.0" />
                     </font>
                 </TextField>
-                <TextField layoutX="94.0" layoutY="357.0" prefHeight="54.0" prefWidth="460.0" promptText="Username" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0">
+                <TextField fx:id="usernameField" layoutX="94.0" layoutY="357.0" prefHeight="54.0" prefWidth="460.0" promptText="Username" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0">
                     <font>
                         <Font name="Poppins Regular" size="24.0" />
                     </font>
