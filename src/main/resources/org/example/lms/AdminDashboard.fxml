@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.lms.AdminDashboardController">
+    <children>
+      <AnchorPane fx:id="sidebar" prefHeight="768.0" prefWidth="280.0" style="-fx-background-color: FCDC94;">
+         <children>
+                <Button fx:id="btnHomepage" layoutX="25.0" layoutY="291.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Homepage">
+               <font>
+                  <Font size="24.0" />
+               </font></Button>
+                <Button fx:id="btnIssueBook" layoutX="25.0" layoutY="411.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Issue Book">
+               <font>
+                  <Font size="24.0" />
+               </font></Button>
+                <Button fx:id="btnManageBooks" layoutX="25.0" layoutY="351.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Manage Books">
+               <font>
+                  <Font size="24.0" />
+               </font></Button>
+                <Button fx:id="btnReturnBook" layoutX="25.0" layoutY="471.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Return Book">
+               <font>
+                  <Font size="24.0" />
+               </font></Button>
+                <Button fx:id="btnViewRecords" layoutX="25.0" layoutY="531.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="View Records">
+               <font>
+                  <Font size="24.0" />
+               </font></Button>
+                <Button fx:id="btnViewDefaulters" layoutX="25.0" layoutY="591.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="View Defaulter List">
+               <font>
+                  <Font size="24.0" />
+               </font></Button>
+                <Button fx:id="btnLogout" layoutX="25.0" layoutY="698.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Logout">
+               <font>
+                  <Font size="24.0" />
+               </font></Button>
+            <ImageView fitHeight="76.0" fitWidth="92.0" layoutX="95.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../logo/logo.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="29.0" layoutY="108.0" prefHeight="51.0" prefWidth="222.0" text="LibraTrack" textFill="#683b3b">
+               <font>
+                  <Font size="40.0" />
+               </font>
+            </Label>
+            <Label alignment="TOP_LEFT" layoutX="80.0" layoutY="193.0" prefHeight="30.0" prefWidth="181.0" text="Welcome," wrapText="true">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="28.0" layoutY="212.0" prefHeight="51.0" prefWidth="222.0" text="Admin">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+
+        <!-- Main Content Area -->
+        <AnchorPane fx:id="contentArea" layoutX="280.0" prefHeight="768.0" prefWidth="1000.0" />
+    </children>
+</AnchorPane>

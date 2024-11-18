@@ -2,19 +2,13 @@ package org.example.lms;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class LoginController {
-    private String username, password;
     @FXML
     private TextField usernameField;
     @FXML
@@ -22,19 +16,28 @@ public class LoginController {
     @FXML
     private Label errorLabel;
 
+    private AuthService authService = new AuthService();
+
     @FXML
     protected void onLoginButtonClick(ActionEvent event) throws IOException {
-        username = usernameField.getText();
-        password = passwordField.getText();
+        String username = usernameField.getText();
+        String password = passwordField.getText();
 
-        AuthService authService = new AuthService();
-        boolean isAuthenticated = authService.authenticate(username, password);
-
-        if(isAuthenticated) {
-            SceneSwitcher.switchScene(event, "dashboard.fxml", "Dashboard");
+        // Check if fields are empty
+        if (username.isEmpty() || password.isEmpty()) {
+            errorLabel.setText("Field(s) cannot be empty!");
+            return;
         }
-        else {
-            errorLabel.setText("Wrong password, try again.");
+
+        // Authenticate user and get role
+        String role = authService.authenticate(username, password);
+
+        if (role == null) {
+            errorLabel.setText("Invalid username or password!");
+        } else if (role.equals("admin")) {
+            SceneSwitcher.switchScene(event, "AdminDashboard.fxml", "Admin Dashboard");
+        } else {
+            SceneSwitcher.switchScene(event, "dashboard.fxml", "User Dashboard");
         }
     }
 
