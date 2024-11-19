@@ -1,14 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.lms.Homepage"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="768.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.lms.ManageBooksController">
+    <children>
+        <!-- Search Area -->
+        <TextField fx:id="txtSearch" layoutX="20.0" layoutY="20.0" promptText="Search by ID, Name, Author, etc." prefWidth="400.0" />
 
+        <!-- Book Table -->
+        <TableView fx:id="tableBooks" layoutX="20.0" layoutY="60.0" prefWidth="1240.0" prefHeight="300.0">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="50.0" />
+                <TableColumn fx:id="colName" text="Book Name" prefWidth="200.0" />
+                <TableColumn fx:id="colAuthor" text="Author" prefWidth="200.0" />
+                <TableColumn fx:id="colCategory" text="Category" prefWidth="150.0" />
+                <TableColumn fx:id="colEdition" text="Edition" prefWidth="100.0" />
+                <TableColumn fx:id="colLanguage" text="Language" prefWidth="100.0" />
+                <TableColumn fx:id="colQuantity" text="Quantity" prefWidth="100.0" />
+            </columns>
+        </TableView>
+
+        <!-- Book Details (Editable Fields) -->
+        <TextField fx:id="txtName" layoutX="20.0" layoutY="380.0" promptText="Book Name" prefWidth="400.0" />
+        <TextField fx:id="txtAuthor" layoutX="20.0" layoutY="420.0" promptText="Author Name" prefWidth="400.0" />
+        <TextField fx:id="txtCategory" layoutX="20.0" layoutY="460.0" promptText="Category" prefWidth="400.0" />
+        <TextField fx:id="txtEdition" layoutX="20.0" layoutY="500.0" promptText="Edition" prefWidth="400.0" />
+        <TextField fx:id="txtLanguage" layoutX="20.0" layoutY="540.0" promptText="Language" prefWidth="400.0" />
+        <TextField fx:id="txtQuantity" layoutX="20.0" layoutY="580.0" promptText="Quantity" prefWidth="400.0" />
+
+        <!-- Buttons -->
+        <Button fx:id="btnAdd" layoutX="440.0" layoutY="380.0" text="Add" onAction="#onAdd" prefWidth="100.0" />
+        <Button fx:id="btnUpdate" layoutX="440.0" layoutY="420.0" text="Update" onAction="#onUpdate" prefWidth="100.0" />
+        <Button fx:id="btnDelete" layoutX="440.0" layoutY="460.0" text="Delete" onAction="#onDelete" prefWidth="100.0" />
+    </children>
 </AnchorPane>

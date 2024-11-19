@@ -14,12 +14,10 @@ import java.sql.SQLException;
 
 public class RegisterController {
 
-    private String insertQuery = "INSERT INTO users (username, password_hash, name, email, phone_no) VALUES (?, ?, ?, ?, ?)";
+    private final String insertQuery = "INSERT INTO users (username, password_hash, name, email, phone_no) VALUES (?, ?, ?, ?, ?)";
 
     @FXML
-    private TextField firstNameField;
-    @FXML
-    private TextField lastNameField;
+    private TextField nameField;
     @FXML
     private TextField emailField;
     @FXML
@@ -33,15 +31,14 @@ public class RegisterController {
 
     @FXML
     protected void onRegisterButtonClick(ActionEvent event) throws IOException, NoSuchAlgorithmException {
-        String firstName = firstNameField.getText();
-        String lastName = lastNameField.getText();
+        String name = nameField.getText();
         String email = emailField.getText();
         String phoneNumber = phoneNumberField.getText();
         String username = usernameField.getText();
         String password = passwordField.getText();
 
         // Check if any field is empty
-        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || username.isEmpty() || password.isEmpty()) {
+        if (name.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || username.isEmpty() || password.isEmpty()) {
             errorLabel.setText("Field(s) cannot be empty!");
             return;
         }
@@ -54,7 +51,7 @@ public class RegisterController {
 
             stmnt.setString(1, username);       // Username
             stmnt.setString(2, hashedPassword); // Hashed password
-            stmnt.setString(3, firstName + " " + lastName); // Full name
+            stmnt.setString(3, name);           // Full name
             stmnt.setString(4, email);          // Email
             stmnt.setString(5, phoneNumber);    // Phone number
 
@@ -62,7 +59,7 @@ public class RegisterController {
 
             if (rowsInserted > 0) {
                 System.out.println("New user created successfully.");
-                SceneSwitcher.switchScene(event, "dashboard.fxml", "Dashboard");
+                SceneSwitcher.switchScene(event, "MemberDashboard.fxml", "Member Dashboard");
             }
         } catch (SQLException e) {
             e.printStackTrace();

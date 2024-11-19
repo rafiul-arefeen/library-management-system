@@ -8,12 +8,11 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
-import java.util.Objects;
 
-public class AdminDashboardController {
+public class MemberDashboardController {
 
     @FXML
-    private Button btnHomepage, btnManageBooks, btnIssueBook, btnReturnBook, btnViewRecords, btnViewRequests, btnManageMembers, btnLogout;
+    private Button btnHomepage, btnRequestIssue, btnRequestReturn, btnLogout;
 
     @FXML
     private AnchorPane contentArea;
@@ -22,7 +21,7 @@ public class AdminDashboardController {
 
     @FXML
     public void initialize() {
-        loadPage("Homepage.fxml"); // Default to homepage on load
+        loadPage("UserHomepage.fxml"); // Default to homepage on load
         highlightButton(btnHomepage);
     }
 
@@ -33,19 +32,11 @@ public class AdminDashboardController {
 
         String fxmlFile = "";
         if (clickedButton == btnHomepage) {
-            fxmlFile = "Homepage.fxml";
-        } else if (clickedButton == btnManageBooks) {
-            fxmlFile = "ManageBooks.fxml";
-        } else if (clickedButton == btnIssueBook) {
-            fxmlFile = "IssueBook.fxml";
-        } else if (clickedButton == btnReturnBook) {
-            fxmlFile = "ReturnBook.fxml";
-        } else if (clickedButton == btnViewRecords) {
-            fxmlFile = "ViewRecords.fxml";
-        } else if (clickedButton == btnViewRequests) {
-            fxmlFile = "ViewRequests.fxml";
-        } else if (clickedButton == btnManageMembers) {
-            fxmlFile = "ManageMembers.fxml";
+            fxmlFile = "UserHomepage.fxml";
+        } else if (clickedButton == btnRequestIssue) {
+            fxmlFile = "RequestIssue.fxml";
+        } else if (clickedButton == btnRequestReturn) {
+            fxmlFile = "RequestReturn.fxml";
         } else if (clickedButton == btnLogout) {
             // Navigate to login screen on logout
             SceneSwitcher.switchScene(event, "login.fxml", "Login");
@@ -57,7 +48,7 @@ public class AdminDashboardController {
 
     private void loadPage(String fxmlFile) {
         try {
-            Parent page = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
+            Parent page = FXMLLoader.load(getClass().getResource(fxmlFile));
             contentArea.getChildren().clear();
             contentArea.getChildren().add(page);
         } catch (IOException e) {
@@ -73,6 +64,6 @@ public class AdminDashboardController {
 
         // Set the clicked button as the active button
         activeButton = clickedButton;
-        activeButton.setStyle("-fx-background-color: #9ccc65; -fx-border-color: #7cb342; -fx-effect: innershadow(two-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 2);");
+        activeButton.setStyle("-fx-background-color: #4caf50; -fx-border-color: #388e3c; -fx-effect: innershadow(two-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 2);");
     }
 }

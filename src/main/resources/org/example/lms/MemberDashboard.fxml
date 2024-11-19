@@ -7,46 +7,26 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.lms.AdminDashboardController">
+<AnchorPane prefHeight="768.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.lms.MemberDashboardController">
     <children>
-        <AnchorPane fx:id="sidebar" prefHeight="768.0" prefWidth="280.0" style="-fx-background-color: FCDC94;">
+        <AnchorPane fx:id="sidebar" prefHeight="768.0" prefWidth="280.0" style="-fx-background-color: #FCDC94;">
             <children>
                 <Button fx:id="btnHomepage" layoutX="25.0" layoutY="291.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Homepage">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnIssueBook" layoutX="25.0" layoutY="411.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Issue Book">
+                <Button fx:id="btnRequestIssue" layoutX="25.0" layoutY="351.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Request Issue">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnManageBooks" layoutX="25.0" layoutY="351.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Manage Books">
+                <Button fx:id="btnRequestReturn" layoutX="25.0" layoutY="411.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Request Return">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnReturnBook" layoutX="25.0" layoutY="471.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Return Book">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Button>
-                <Button fx:id="btnViewRecords" layoutX="25.0" layoutY="531.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="View Records">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Button>
-                <Button fx:id="btnViewRequests" layoutX="25.0" layoutY="591.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="View Requests">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Button>
-                <Button fx:id="btnManageMembers" layoutX="25.0" layoutY="651.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Manage Members">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Button>
-                <Button fx:id="btnLogout" layoutX="25.0" layoutY="708.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Logout">
+                <Button fx:id="btnLogout" layoutX="25.0" layoutY="471.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Logout">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -66,7 +46,7 @@
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <Label alignment="CENTER" layoutX="28.0" layoutY="212.0" prefHeight="51.0" prefWidth="222.0" text="Admin">
+                <Label alignment="CENTER" layoutX="28.0" layoutY="212.0" prefHeight="51.0" prefWidth="222.0" text="Member">
                     <font>
                         <Font size="30.0" />
                     </font>

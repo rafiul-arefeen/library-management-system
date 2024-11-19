@@ -37,7 +37,7 @@ public class LoginController {
         } else if (role.equals("admin")) {
             SceneSwitcher.switchScene(event, "AdminDashboard.fxml", "Admin Dashboard");
         } else {
-            SceneSwitcher.switchScene(event, "dashboard.fxml", "User Dashboard");
+            SceneSwitcher.switchScene(event, "MemberDashboard.fxml", "Member Dashboard");
         }
     }
 
