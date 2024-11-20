@@ -16,7 +16,7 @@
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnIssueBook" layoutX="25.0" layoutY="411.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Issue Book">
+                <Button fx:id="btnIssueBook" layoutX="25.0" layoutY="471.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Issue Book">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -26,12 +26,7 @@
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnReturnBook" layoutX="25.0" layoutY="471.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Return Book">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Button>
-                <Button fx:id="btnViewRecords" layoutX="25.0" layoutY="531.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="View Records">
+                <Button fx:id="btnReturnBook" layoutX="25.0" layoutY="531.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Return Book">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -41,7 +36,7 @@
                         <Font size="24.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnManageMembers" layoutX="25.0" layoutY="651.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Manage Members">
+                <Button fx:id="btnManageMembers" layoutX="25.0" layoutY="411.0" onAction="#onSidebarOptionClick" prefHeight="51.0" prefWidth="229.0" text="Manage Members">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -66,7 +61,7 @@
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <Label alignment="CENTER" layoutX="28.0" layoutY="212.0" prefHeight="51.0" prefWidth="222.0" text="Admin">
+                <Label fx:id="welcomeLabel" alignment="CENTER" layoutX="28.0" layoutY="212.0" prefHeight="51.0" prefWidth="222.0" text="Admin">
                     <font>
                         <Font size="30.0" />
                     </font>

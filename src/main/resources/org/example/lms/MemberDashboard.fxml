@@ -46,7 +46,7 @@
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <Label alignment="CENTER" layoutX="28.0" layoutY="212.0" prefHeight="51.0" prefWidth="222.0" text="Member">
+                <Label fx:id="welcomeLabel" alignment="CENTER" layoutX="28.0" layoutY="212.0" prefHeight="51.0" prefWidth="222.0" text="Member">
                     <font>
                         <Font size="30.0" />
                     </font>

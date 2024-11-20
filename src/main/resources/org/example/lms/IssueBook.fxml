@@ -1,14 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.lms.Homepage"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="768.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.lms.IssueBookController">
+    <children>
+        <!-- Title Label -->
+        <Label layoutX="50.0" layoutY="20.0" style="-fx-font-size: 24px; -fx-text-fill: #2c3e50;" text="Issue Books">
+            <font>
+                <Font name="Poppins Regular" size="24.0" />
+            </font>
+        </Label>
 
+        <!-- Search Bar for Books -->
+        <TextField fx:id="txtSearchBooks" layoutX="50.0" layoutY="70.0" prefWidth="900.0" promptText="Search Books by ID, Name, Author, etc." />
+
+        <!-- Books Table -->
+        <TableView fx:id="tableBooks" layoutX="50.0" layoutY="120.0" prefHeight="147.0" prefWidth="900.0">
+            <columns>
+                <TableColumn fx:id="colBookId" prefWidth="50.0" text="ID" />
+                <TableColumn fx:id="colBookName" prefWidth="200.0" text="Book Name" />
+                <TableColumn fx:id="colAuthorName" prefWidth="200.0" text="Author" />
+                <TableColumn fx:id="colCategory" prefWidth="150.0" text="Category" />
+                <TableColumn fx:id="colEdition" prefWidth="100.0" text="Edition" />
+                <TableColumn fx:id="colLanguage" prefWidth="100.0" text="Language" />
+                <TableColumn fx:id="colQuantity" prefWidth="100.0" text="Quantity" />
+            </columns>
+        </TableView>
+
+        <!-- Search Bar for Members -->
+        <TextField fx:id="txtSearchMembers" layoutX="50.0" layoutY="308.0" prefWidth="900.0" promptText="Search Members by ID, Name, Username, etc." />
+
+        <!-- Members Table -->
+        <TableView fx:id="tableMembers" layoutX="50.0" layoutY="358.0" prefHeight="147.0" prefWidth="900.0">
+            <columns>
+                <TableColumn fx:id="colMemberId" prefWidth="50.0" text="ID" />
+                <TableColumn fx:id="colUsername" prefWidth="200.0" text="Username" />
+                <TableColumn fx:id="colMemberName" prefWidth="200.0" text="Name" />
+                <TableColumn fx:id="colMemberEmail" prefWidth="200.0" text="Email" />
+                <TableColumn fx:id="colPhone" prefWidth="150.0" text="Phone" />
+            </columns>
+        </TableView>
+
+        <!-- Book Details Section -->
+        <Label layoutX="50.0" layoutY="520.0" style="-fx-font-size: 18px;" text="Book Details" />
+        <GridPane hgap="10" layoutX="50.0" layoutY="550.0" vgap="10">
+            <children>
+                <Label text="Book Name:" />
+                <TextField fx:id="txtBookName" promptText="Enter book name" GridPane.columnIndex="1" />
+
+                <Label text="Author:" GridPane.rowIndex="1" />
+                <TextField fx:id="txtBookAuthor" promptText="Enter author name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Category:" GridPane.rowIndex="2" />
+                <TextField fx:id="txtBookCategory" promptText="Enter category" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label text="Edition:" GridPane.rowIndex="3" />
+                <TextField fx:id="txtBookEdition" promptText="Enter edition" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <Label text="Language:" GridPane.rowIndex="4" />
+                <TextField fx:id="txtBookLanguage" promptText="Enter language" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                <Label text="Quantity:" GridPane.rowIndex="5" />
+                <TextField fx:id="txtBookQuantity" promptText="Enter quantity" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            </children>
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+
+        <!-- Member Details Section -->
+        <Label layoutX="349.0" layoutY="540.0" style="-fx-font-size: 18px;" text="Member Details" />
+        <GridPane hgap="10" layoutX="349.0" layoutY="570.0" vgap="10">
+            <children>
+                <Label text="Username:" />
+                <TextField fx:id="txtMemberUsername" promptText="Enter username" GridPane.columnIndex="1" />
+
+                <Label text="Name:" GridPane.rowIndex="1" />
+                <TextField fx:id="txtMemberName" promptText="Enter name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Email:" GridPane.rowIndex="2" />
+                <TextField fx:id="txtMemberEmail" promptText="Enter email" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label text="Phone:" GridPane.rowIndex="3" />
+                <TextField fx:id="txtMemberPhone" promptText="Enter phone" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            </children>
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+
+        <!-- Due Date Picker -->
+        <Label layoutX="658.0" layoutY="614.0" text="Due Date:" />
+        <DatePicker fx:id="datePickerDueDate" layoutX="722.0" layoutY="610.0" prefWidth="200.0" />
+
+        <!-- Issue Book Button -->
+        <HBox layoutX="50.0" layoutY="720.0" spacing="10" />
+         <Button fx:id="btnIssueBook" layoutX="877.0" layoutY="725.0" onAction="#onIssueBook" text="Issue Book" />
+    </children>
 </AnchorPane>

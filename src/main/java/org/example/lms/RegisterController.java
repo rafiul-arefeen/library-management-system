@@ -59,6 +59,7 @@ public class RegisterController {
 
             if (rowsInserted > 0) {
                 System.out.println("New user created successfully.");
+                SessionManager.setUsername(username);
                 SceneSwitcher.switchScene(event, "MemberDashboard.fxml", "Member Dashboard");
             }
         } catch (SQLException e) {

@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Label;
 
 import java.io.IOException;
 
@@ -17,10 +18,16 @@ public class MemberDashboardController {
     @FXML
     private AnchorPane contentArea;
 
+    @FXML
+    private Label welcomeLabel;
+
     private Button activeButton = null; // Track the currently active button
 
     @FXML
     public void initialize() {
+        String username = SessionManager.getUsername();
+        welcomeLabel.setText(username);
+
         loadPage("UserHomepage.fxml"); // Default to homepage on load
         highlightButton(btnHomepage);
     }

@@ -1,14 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.lms.Homepage"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="900.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.lms.ReturnBookController">
+    <children>
+        <!-- Title Label -->
+        <Label layoutX="50.0" layoutY="20.0" style="-fx-font-size: 24px; -fx-text-fill: #2c3e50;" text="Return Books">
+            <font>
+                <Font name="Poppins Regular" size="24.0" />
+            </font>
+        </Label>
 
+        <!-- Search Bar -->
+        <TextField fx:id="txtSearchIssuedBooks" layoutX="50.0" layoutY="70.0" prefWidth="900.0" promptText="Search by book name or member username..." />
+
+        <!-- Issued Books Table -->
+        <TableView fx:id="tableIssuedBooks" layoutX="50.0" layoutY="120.0" prefHeight="235.0" prefWidth="900.0">
+            <columns>
+                <TableColumn fx:id="colBookId" text="Book ID" />
+                <TableColumn fx:id="colBookName" prefWidth="200" text="Book Name" />
+                <TableColumn fx:id="colMemberUsername" prefWidth="150" text="Username" />
+                <TableColumn fx:id="colIssueDate" prefWidth="150" text="Issue Date" />
+                <TableColumn fx:id="colDueDate" prefWidth="150" text="Due Date" />
+                <TableColumn fx:id="colStatus" prefWidth="100" text="Status" />
+            </columns>
+        </TableView>
+
+        <!-- Book Details Section -->
+        <Label layoutX="50.0" layoutY="440.0" style="-fx-font-size: 18px;" text="Book Details" />
+        <GridPane hgap="10" layoutX="50.0" layoutY="480.0" vgap="10">
+            <children>
+                <Label text="Book ID:" />
+                <TextField fx:id="txtBookId" promptText="Enter book ID" GridPane.columnIndex="1" />
+
+                <Label text="Book Name:" GridPane.rowIndex="1" />
+                <TextField fx:id="txtBookName" editable="false" promptText="Enter book name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Author:" GridPane.rowIndex="2" />
+                <TextField fx:id="txtBookAuthor" editable="false" promptText="Enter author name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label text="Category:" GridPane.rowIndex="3" />
+                <TextField fx:id="txtBookCategory" editable="false" promptText="Enter category" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <Label text="Edition:" GridPane.rowIndex="4" />
+                <TextField fx:id="txtBookEdition" editable="false" promptText="Enter edition" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                <Label text="Language:" GridPane.rowIndex="5" />
+                <TextField fx:id="txtBookLanguage" editable="false" promptText="Enter language" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                <Label text="Quantity:" GridPane.rowIndex="6" />
+                <TextField fx:id="txtBookQuantity" editable="false" promptText="Quantity available" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            </children>
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+
+        <!-- Member Details Section -->
+        <Label layoutX="347.0" layoutY="440.0" style="-fx-font-size: 18px;" text="Member Details" />
+          <Label layoutX="347.0" layoutY="499.0" text="Username:" />
+          <TextField fx:id="txtMemberUsername" layoutX="413.0" layoutY="495.0" promptText="Enter username" />
+
+          <Label layoutX="347.0" layoutY="534.0" text="Name:" />
+          <TextField fx:id="txtMemberName" editable="false" layoutX="413.0" layoutY="530.0" promptText="Enter name" />
+
+          <Label layoutX="347.0" layoutY="569.0" text="Email:" />
+          <TextField fx:id="txtMemberEmail" editable="false" layoutX="413.0" layoutY="565.0" promptText="Enter email" />
+
+          <Label layoutX="347.0" layoutY="604.0" text="Phone:" />
+          <TextField fx:id="txtMemberPhone" editable="false" layoutX="413.0" layoutY="600.0" promptText="Enter phone" />
+
+        <!-- Penalty Section -->
+        <Label layoutX="657.0" layoutY="440.0" style="-fx-font-size: 18px;" text="Penalty Details" />
+          <Label layoutX="657.0" layoutY="508.0" text="Penalty per Day:" />
+          <TextField fx:id="txtPenaltyPerDay" layoutX="753.0" layoutY="504.0" promptText="Enter penalty per day" />
+
+          <Label layoutX="657.0" layoutY="543.0" text="Overdue Days:" />
+          <TextField fx:id="txtOverdueDays" editable="false" layoutX="753.0" layoutY="539.0" promptText="Number of overdue days" />
+
+          <Label layoutX="657.0" layoutY="578.0" text="Total Penalty:" />
+          <TextField fx:id="txtTotalPenalty" editable="false" layoutX="753.0" layoutY="574.0" promptText="Total penalty amount" />
+
+        <!-- Return Button -->
+        <Button fx:id="btnReturnBook" layoutX="850.0" layoutY="720.0" onAction="#onReturnBook" text="Return Book" />
+    </children>
 </AnchorPane>

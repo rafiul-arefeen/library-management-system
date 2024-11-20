@@ -1,40 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.lms.ManageBooksController">
+<AnchorPane prefHeight="768.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.lms.ManageBooksController">
     <children>
-        <!-- Search Area -->
-        <TextField fx:id="txtSearch" layoutX="20.0" layoutY="20.0" promptText="Search by ID, Name, Author, etc." prefWidth="400.0" />
+        <!-- Title Label -->
+        <Label layoutX="50.0" layoutY="20.0" style="-fx-font-size: 24px; -fx-text-fill: #2c3e50;" text="Manage Books">
+            <font>
+                <Font name="Poppins Regular" size="24.0" />
+            </font>
+        </Label>
 
-        <!-- Book Table -->
-        <TableView fx:id="tableBooks" layoutX="20.0" layoutY="60.0" prefWidth="1240.0" prefHeight="300.0">
+        <!-- Search Bar -->
+        <TextField fx:id="txtSearch" layoutX="50.0" layoutY="70.0" prefWidth="900.0" promptText="Search by ID, Name, Author, etc." />
+
+        <!-- Table for Books -->
+        <TableView fx:id="tableBooks" layoutX="50.0" layoutY="120.0" prefHeight="271.0" prefWidth="900.0">
             <columns>
-                <TableColumn fx:id="colId" text="ID" prefWidth="50.0" />
-                <TableColumn fx:id="colName" text="Book Name" prefWidth="200.0" />
-                <TableColumn fx:id="colAuthor" text="Author" prefWidth="200.0" />
-                <TableColumn fx:id="colCategory" text="Category" prefWidth="150.0" />
-                <TableColumn fx:id="colEdition" text="Edition" prefWidth="100.0" />
-                <TableColumn fx:id="colLanguage" text="Language" prefWidth="100.0" />
-                <TableColumn fx:id="colQuantity" text="Quantity" prefWidth="100.0" />
+                <TableColumn fx:id="colId" prefWidth="50" text="ID" />
+                <TableColumn fx:id="colName" prefWidth="200" text="Book Name" />
+                <TableColumn fx:id="colAuthor" prefWidth="200" text="Author" />
+                <TableColumn fx:id="colCategory" prefWidth="150" text="Category" />
+                <TableColumn fx:id="colEdition" prefWidth="100" text="Edition" />
+                <TableColumn fx:id="colLanguage" prefWidth="100" text="Language" />
+                <TableColumn fx:id="colQuantity" prefWidth="100" text="Quantity" />
             </columns>
         </TableView>
 
-        <!-- Book Details (Editable Fields) -->
-        <TextField fx:id="txtName" layoutX="20.0" layoutY="380.0" promptText="Book Name" prefWidth="400.0" />
-        <TextField fx:id="txtAuthor" layoutX="20.0" layoutY="420.0" promptText="Author Name" prefWidth="400.0" />
-        <TextField fx:id="txtCategory" layoutX="20.0" layoutY="460.0" promptText="Category" prefWidth="400.0" />
-        <TextField fx:id="txtEdition" layoutX="20.0" layoutY="500.0" promptText="Edition" prefWidth="400.0" />
-        <TextField fx:id="txtLanguage" layoutX="20.0" layoutY="540.0" promptText="Language" prefWidth="400.0" />
-        <TextField fx:id="txtQuantity" layoutX="20.0" layoutY="580.0" promptText="Quantity" prefWidth="400.0" />
+        <!-- Book Details Section -->
+        <Label layoutX="50.0" layoutY="408.0" style="-fx-font-size: 18px;" text="Book Details" />
+        <GridPane hgap="10" layoutX="50.0" layoutY="448.0" vgap="10">
+            <children>
+                <Label text="Book Name:" />
+                <TextField fx:id="txtName" promptText="Enter book name" GridPane.columnIndex="1" />
 
-        <!-- Buttons -->
-        <Button fx:id="btnAdd" layoutX="440.0" layoutY="380.0" text="Add" onAction="#onAdd" prefWidth="100.0" />
-        <Button fx:id="btnUpdate" layoutX="440.0" layoutY="420.0" text="Update" onAction="#onUpdate" prefWidth="100.0" />
-        <Button fx:id="btnDelete" layoutX="440.0" layoutY="460.0" text="Delete" onAction="#onDelete" prefWidth="100.0" />
+                <Label text="Author:" GridPane.rowIndex="1" />
+                <TextField fx:id="txtAuthor" promptText="Enter author name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Category:" GridPane.rowIndex="2" />
+                <TextField fx:id="txtCategory" promptText="Enter category" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label text="Edition:" GridPane.rowIndex="3" />
+                <TextField fx:id="txtEdition" promptText="Enter edition" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <Label text="Language:" GridPane.rowIndex="4" />
+                <TextField fx:id="txtLanguage" promptText="Enter language" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                <Label text="Quantity:" GridPane.rowIndex="5" />
+                <TextField fx:id="txtQuantity" promptText="Enter quantity" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            </children>
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+
+        <!-- Action Buttons -->
+        <HBox layoutX="50.0" layoutY="680.0" spacing="10" />
+         <Button fx:id="btnAdd" layoutX="767.0" layoutY="680.0" onAction="#onAdd" text="Add" />
+         <Button fx:id="btnUpdate" layoutX="815.0" layoutY="680.0" onAction="#onUpdate" text="Update" />
+         <Button fx:id="btnDelete" layoutX="880.0" layoutY="680.0" onAction="#onDelete" text="Delete" />
     </children>
 </AnchorPane>

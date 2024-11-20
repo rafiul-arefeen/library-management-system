@@ -136,7 +136,6 @@ public class ManageMembersController {
 
     }
 
-
     private void setupTable() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -144,8 +143,24 @@ public class ManageMembersController {
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
+        // Enable sorting for each column
+        colId.setSortable(true);
+        colUsername.setSortable(true);
+        colName.setSortable(true);
+        colEmail.setSortable(true);
+        colPhone.setSortable(true);
+
+        // Set the data to the table
         tableMembers.setItems(membersList);
+
+        tableMembers.setOnMouseClicked(event -> {
+            ManageMembersController.User selectedUser = tableMembers.getSelectionModel().getSelectedItem();
+            if (selectedUser != null) {
+                fillFields(selectedUser);
+            }
+        });
     }
+
 
     private void loadMembers() {
         membersList.clear();
@@ -223,49 +238,129 @@ public class ManageMembersController {
 
     @FXML
     private void onUpdate(ActionEvent event) {
-        if (!userExists(txtUsername.getText())) {
-            showAlert(Alert.AlertType.ERROR, "User does not exist", "Cannot update, user does not exist.");
-        } else {
-            try (Connection connection = DatabaseConnection.connect();
-                 PreparedStatement stmt = connection.prepareStatement("UPDATE users SET name = ?, email = ?, phone_no = ? WHERE username = ?")) {
+        String username = txtUsername.getText().trim();
+        String email = txtEmail.getText().trim();
 
-                stmt.setString(1, txtName.getText());
-                stmt.setString(2, txtEmail.getText());
-                stmt.setString(3, txtPhone.getText());
-                stmt.setString(4, txtUsername.getText());
-                stmt.executeUpdate();
+        // Validate that username and email are not empty
+        if (username.isEmpty() || email.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Missing Fields", "Both username and email must be entered.");
+            return;
+        }
 
-                showAlert(Alert.AlertType.INFORMATION, "User Updated", "User details updated successfully.");
-                loadMembers();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        // Check if the user exists with the given username
+        User existingUser = membersList.stream()
+                .filter(user -> user.getUsername().equalsIgnoreCase(username))
+                .findFirst()
+                .orElse(null);
+
+        if (existingUser == null) {
+            showAlert(Alert.AlertType.ERROR, "User Not Found", "Cannot update, no user found with the given username.");
+            return;
+        }
+
+        String name = txtName.getText().trim();
+        String phone = txtPhone.getText().trim();
+
+        // Validate other fields
+        if (name.isEmpty() || phone.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Missing Fields", "Name and phone number must be filled out.");
+            return;
+        }
+
+        // Check if the new email is already taken by another user
+        boolean emailTaken = membersList.stream()
+                .anyMatch(user -> user.getEmail().equalsIgnoreCase(email) && user.getId() != existingUser.getId());
+
+        if (emailTaken) {
+            showAlert(Alert.AlertType.ERROR, "Email Already Taken", "The email address is already associated with another user.");
+            return;
+        }
+
+        // Update the user details
+        try (Connection connection = DatabaseConnection.connect();
+             PreparedStatement stmt = connection.prepareStatement("UPDATE users SET username = ?, name = ?, email = ?, phone_no = ? WHERE user_id = ?")) {
+
+            stmt.setString(1, username);
+            stmt.setString(2, name);
+            stmt.setString(3, email);
+            stmt.setString(4, phone);
+            stmt.setInt(5, existingUser.getId());
+            stmt.executeUpdate();
+
+            showAlert(Alert.AlertType.INFORMATION, "User Updated", "User details updated successfully.");
+            loadMembers(); // Refresh the table data
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while updating the user.");
         }
     }
+
 
     @FXML
     private void onDelete(ActionEvent event) {
-        if (!userExists(txtUsername.getText())) {
-            showAlert(Alert.AlertType.ERROR, "User does not exist", "Cannot delete, user does not exist.");
-        } else {
-            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this user?", ButtonType.YES, ButtonType.NO);
-            Optional<ButtonType> result = confirmation.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.YES) {
-                try (Connection connection = DatabaseConnection.connect();
-                     PreparedStatement stmt = connection.prepareStatement("DELETE FROM users WHERE username = ?")) {
+        String username = txtUsername.getText().trim();
+        String email = txtEmail.getText().trim();
 
-                    stmt.setString(1, txtUsername.getText());
-                    stmt.executeUpdate();
+        // Validate username and email fields
+        if (username.isEmpty() || email.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Missing Fields", "Both username and email must be entered.");
+            return;
+        }
 
-                    showAlert(Alert.AlertType.INFORMATION, "User Deleted", "User deleted successfully.");
-                    loadMembers();
-                    clearFields();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+        // Check if the user exists
+        User userToDelete = membersList.stream()
+                .filter(user -> user.getUsername().equalsIgnoreCase(username) && user.getEmail().equalsIgnoreCase(email))
+                .findFirst()
+                .orElse(null);
+
+        if (userToDelete == null) {
+            showAlert(Alert.AlertType.ERROR, "User Not Found", "Cannot delete, user with the given username and email does not exist.");
+            return;
+        }
+
+        // Check if the user has any issued books
+        try (Connection connection = DatabaseConnection.connect();
+             PreparedStatement checkStmt = connection.prepareStatement(
+                     "SELECT COUNT(*) AS issued_count FROM issued_book_details WHERE member_id = ?")) {
+
+            checkStmt.setInt(1, userToDelete.getId());
+            ResultSet rs = checkStmt.executeQuery();
+
+            if (rs.next() && rs.getInt("issued_count") > 0) {
+                showAlert(Alert.AlertType.ERROR, "Cannot Delete", "The member has issued books that have not been returned.");
+                return; // Exit the method if books are still issued
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while checking issued books.");
+            return;
+        }
+
+        // Proceed with deletion if no issued books
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this user?", ButtonType.YES, ButtonType.NO);
+        Optional<ButtonType> result = confirmation.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.YES) {
+            try (Connection connection = DatabaseConnection.connect();
+                 PreparedStatement stmt = connection.prepareStatement("DELETE FROM users WHERE user_id = ?")) {
+
+                stmt.setInt(1, userToDelete.getId());
+                stmt.executeUpdate();
+
+                showAlert(Alert.AlertType.INFORMATION, "User Deleted", "User deleted successfully.");
+                loadMembers(); // Refresh the table
+                clearFields();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while deleting the user.");
             }
         }
     }
+
+
+
 
     private boolean userExists(String username) {
         return membersList.stream().anyMatch(user -> user.getUsername().equals(username));

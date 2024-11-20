@@ -34,10 +34,15 @@ public class LoginController {
 
         if (role == null) {
             errorLabel.setText("Invalid username or password!");
-        } else if (role.equals("admin")) {
-            SceneSwitcher.switchScene(event, "AdminDashboard.fxml", "Admin Dashboard");
         } else {
-            SceneSwitcher.switchScene(event, "MemberDashboard.fxml", "Member Dashboard");
+            // Save the username to SessionManager
+            SessionManager.setUsername(username);
+
+            if (role.equals("admin")) {
+                SceneSwitcher.switchScene(event, "AdminDashboard.fxml", "Admin Dashboard");
+            } else {
+                SceneSwitcher.switchScene(event, "MemberDashboard.fxml", "Member Dashboard");
+            }
         }
     }
 

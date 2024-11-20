@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -13,15 +14,21 @@ import java.util.Objects;
 public class AdminDashboardController {
 
     @FXML
-    private Button btnHomepage, btnManageBooks, btnIssueBook, btnReturnBook, btnViewRecords, btnViewRequests, btnManageMembers, btnLogout;
+    private Button btnHomepage, btnManageBooks, btnIssueBook, btnReturnBook, btnViewRequests, btnManageMembers, btnLogout;
 
     @FXML
     private AnchorPane contentArea;
+
+    @FXML
+    private Label welcomeLabel;
 
     private Button activeButton = null; // Track the currently active button
 
     @FXML
     public void initialize() {
+        String username = SessionManager.getUsername();
+        welcomeLabel.setText(username);
+
         loadPage("Homepage.fxml"); // Default to homepage on load
         highlightButton(btnHomepage);
     }
@@ -40,8 +47,6 @@ public class AdminDashboardController {
             fxmlFile = "IssueBook.fxml";
         } else if (clickedButton == btnReturnBook) {
             fxmlFile = "ReturnBook.fxml";
-        } else if (clickedButton == btnViewRecords) {
-            fxmlFile = "ViewRecords.fxml";
         } else if (clickedButton == btnViewRequests) {
             fxmlFile = "ViewRequests.fxml";
         } else if (clickedButton == btnManageMembers) {

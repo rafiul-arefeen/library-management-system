@@ -79,8 +79,26 @@ public class ManageBooksController {
         colLanguage.setCellValueFactory(new PropertyValueFactory<>("language"));
         colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
+        // Enable sorting for each column
+        colId.setSortable(true);
+        colName.setSortable(true);
+        colAuthor.setSortable(true);
+        colCategory.setSortable(true);
+        colEdition.setSortable(true);
+        colLanguage.setSortable(true);
+        colQuantity.setSortable(true);
+
+        // Set the data to the table
         tableBooks.setItems(booksList);
+
+        tableBooks.setOnMouseClicked(event -> {
+            ManageBooksController.Book selectedUser = tableBooks.getSelectionModel().getSelectedItem();
+            if (selectedUser != null) {
+                fillFields(selectedUser);
+            }
+        });
     }
+
 
     private void loadBooks() {
         booksList.clear();
@@ -131,7 +149,6 @@ public class ManageBooksController {
                     return;
                 }
             }
-            txtQuantity.clear(); // Clear quantity if no match is found
         }
     }
 
@@ -281,8 +298,8 @@ public class ManageBooksController {
         String language = txtLanguage.getText().trim();
         String quantityText = txtQuantity.getText().trim();
 
-        if (name.isEmpty() || author.isEmpty() || category.isEmpty() || language.isEmpty() || quantityText.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Field(s) cannot be empty", "All fields except edition must be filled out!");
+        if (name.isEmpty() || author.isEmpty() || category.isEmpty() || language.isEmpty() || quantityText.isEmpty() || edition.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Field(s) cannot be empty", "All fields must be filled out!");
             return;
         }
 
@@ -324,6 +341,26 @@ public class ManageBooksController {
             return;
         }
 
+        // Check if the book is currently issued
+        try (Connection connection = DatabaseConnection.connect();
+             PreparedStatement checkStmt = connection.prepareStatement(
+                     "SELECT COUNT(*) AS issued_count FROM issued_book_details WHERE book_id = ?")) {
+
+            checkStmt.setInt(1, selectedBook.getId());
+            ResultSet rs = checkStmt.executeQuery();
+
+            if (rs.next() && rs.getInt("issued_count") > 0) {
+                showAlert(Alert.AlertType.ERROR, "Cannot Delete", "The book is currently issued to a member and cannot be deleted.");
+                return; // Exit the method if the book is issued
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while checking issued book details.");
+            return;
+        }
+
+        // Proceed with deletion if the book is not issued
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this book?", ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> result = confirmation.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.YES) {
@@ -339,9 +376,11 @@ public class ManageBooksController {
 
             } catch (SQLException e) {
                 e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while deleting the book.");
             }
         }
     }
+
 
     private void clearFields() {
         txtName.clear();
