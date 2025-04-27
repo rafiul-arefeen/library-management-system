@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.lms.UserHomepageController">
+<AnchorPane prefHeight="768.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.lms.UserHomepageController" stylesheets="@style.css">
     <children>
         <Label fx:id="welcomeMessage" layoutX="50.0" layoutY="50.0" text="Welcome to the User Dashboard!" textFill="#4caf50">
             <font>

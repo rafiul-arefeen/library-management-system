@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 
 import java.sql.*;
 
+
 public class ViewRequestsController {
 
     @FXML private TableView<IssueRequest> tableIssueRequests;
