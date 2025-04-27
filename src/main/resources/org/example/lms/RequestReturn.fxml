@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.lms.RequestReturnController"
+            prefWidth="1000" prefHeight="600">
+
+    <children>
+
+        <VBox spacing="10" layoutX="30" layoutY="30" prefWidth="940" prefHeight="540">
+            <children>
+
+                <!-- Title -->
+                <Label text="Request Book Return" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+                <!-- Search Box -->
+                <HBox spacing="10">
+                    <Label text="Search:" />
+                    <TextField fx:id="txtSearchIssuedBooks" promptText="Search by book name, ID, or status..." prefWidth="400"/>
+                </HBox>
+
+                <!-- Issued Books Table -->
+                <TableView fx:id="tableIssuedBooks" prefHeight="350">
+                    <columns>
+                        <TableColumn fx:id="colBookId" text="Book ID" prefWidth="80"/>
+                        <TableColumn fx:id="colBookName" text="Book Name" prefWidth="200"/>
+                        <TableColumn fx:id="colIssueDate" text="Issue Date" prefWidth="120"/>
+                        <TableColumn fx:id="colDueDate" text="Due Date" prefWidth="120"/>
+                        <TableColumn fx:id="colStatus" text="Status" prefWidth="100"/>
+                    </columns>
+                </TableView>
+
+                <!-- Request Button -->
+                <Button fx:id="btnRequestReturn"
+                        text="Request Return"
+                        disable="true"
+                        prefWidth="150"
+                        onAction="#onRequestReturn"
+                        style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-font-weight: bold;" />
+
+            </children>
+            <padding><Insets top="20" left="20" right="20" bottom="20"/></padding>
+        </VBox>
+
+    </children>
+</AnchorPane>

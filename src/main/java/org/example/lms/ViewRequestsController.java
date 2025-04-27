@@ -11,24 +11,18 @@ import java.sql.*;
 
 public class ViewRequestsController {
 
-    // Issue Requests Table
     @FXML private TableView<IssueRequest> tableIssueRequests;
     @FXML private TableColumn<IssueRequest, Integer> colIssueMemberId, colIssueBookId;
     @FXML private TableColumn<IssueRequest, String> colIssueMemberName, colIssueBookName, colIssueRequestDate;
 
-    // Return Requests Table
     @FXML private TableView<ReturnRequest> tableReturnRequests;
     @FXML private TableColumn<ReturnRequest, Integer> colReturnMemberId, colReturnBookId;
     @FXML private TableColumn<ReturnRequest, String> colReturnMemberName, colReturnBookName, colReturnRequestDate;
 
-    // Member and Book Details
     @FXML private TextField txtMemberName, txtMemberEmail, txtMemberPhone;
     @FXML private TextField txtBookName, txtBookAuthor;
-
-    // Penalty Details
     @FXML private TextField txtPenaltyPerDay, txtOverdueDays, txtTotalPenalty;
 
-    // Action Buttons
     @FXML private Button btnAcceptIssue, btnAcceptReturn;
 
     private ObservableList<IssueRequest> issueRequestsList = FXCollections.observableArrayList();
@@ -38,28 +32,24 @@ public class ViewRequestsController {
     public void initialize() {
         setupIssueRequestsTable();
         setupReturnRequestsTable();
-
-        // Load data
         loadIssueRequests();
         loadReturnRequests();
 
-        // Add listeners for row selection
-        tableIssueRequests.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                fillDetailsFromIssueRequest(newValue);
+        tableIssueRequests.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                fillDetailsFromIssueRequest(newVal);
                 toggleButtons("issue");
             }
         });
 
-        tableReturnRequests.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                fillDetailsFromReturnRequest(newValue);
+        tableReturnRequests.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                fillDetailsFromReturnRequest(newVal);
                 toggleButtons("return");
             }
         });
 
-        // Add listeners for dynamic penalty calculation
-        txtPenaltyPerDay.textProperty().addListener((observable, oldValue, newValue) -> calculatePenalty());
+        txtPenaltyPerDay.textProperty().addListener((obs, oldVal, newVal) -> calculatePenalty());
     }
 
     private void setupIssueRequestsTable() {
@@ -110,7 +100,7 @@ public class ViewRequestsController {
         returnRequestsList.clear();
         try (Connection connection = DatabaseConnection.connect();
              PreparedStatement stmt = connection.prepareStatement(
-                     "SELECT rr.member_id, u.name AS member_name, ibd.book_id, b.book_name, rr.request_date " +
+                     "SELECT rr.id AS request_id, rr.member_id, u.name AS member_name, ibd.book_id, b.book_name, rr.request_date " +
                              "FROM request_return rr " +
                              "JOIN users u ON rr.member_id = u.user_id " +
                              "JOIN issued_book_details ibd ON rr.issued_id = ibd.id " +
@@ -119,6 +109,7 @@ public class ViewRequestsController {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 returnRequestsList.add(new ReturnRequest(
+                        rs.getInt("request_id"),
                         rs.getInt("member_id"),
                         rs.getString("member_name"),
                         rs.getInt("book_id"),
@@ -126,6 +117,7 @@ public class ViewRequestsController {
                         rs.getString("request_date")
                 ));
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -207,15 +199,11 @@ public class ViewRequestsController {
             checkStmt.setInt(1, selectedRequest.getBookId());
             ResultSet rs = checkStmt.executeQuery();
 
-            if (rs.next()) {
-                int quantity = rs.getInt("quantity");
-                if (quantity <= 0) {
-                    showAlert(Alert.AlertType.ERROR, "Book Not Available", "The selected book is out of stock.");
-                    return;
-                }
+            if (rs.next() && rs.getInt("quantity") <= 0) {
+                showAlert(Alert.AlertType.ERROR, "Book Not Available", "The selected book is out of stock.");
+                return;
             }
 
-            // Issue the book
             try (PreparedStatement issueStmt = connection.prepareStatement(
                     "INSERT INTO issued_book_details (book_id, member_id, issue_date, due_date, status) " +
                             "VALUES (?, ?, CURRENT_DATE, DATE_ADD(CURRENT_DATE, INTERVAL 14 DAY), 'On Time')")) {
@@ -230,15 +218,16 @@ public class ViewRequestsController {
                     updateBookStmt.executeUpdate();
                 }
 
-                // Delete the issue request
                 try (PreparedStatement deleteRequestStmt = connection.prepareStatement(
-                        "DELETE FROM request_issue WHERE id = ?")) {
+                        "DELETE FROM request_issue WHERE member_id = ? AND book_id = ?")) {
                     deleteRequestStmt.setInt(1, selectedRequest.getMemberId());
+                    deleteRequestStmt.setInt(2, selectedRequest.getBookId());
                     deleteRequestStmt.executeUpdate();
                 }
 
-                showAlert(Alert.AlertType.INFORMATION, "Success", "Issue request accepted and book issued successfully.");
-                loadIssueRequests(); // Refresh the issue requests table
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Book issued successfully.");
+                loadIssueRequests();
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -266,48 +255,46 @@ public class ViewRequestsController {
             ResultSet rs = checkStmt.executeQuery();
 
             if (rs.next()) {
+                int issuedId = rs.getInt("id");
                 int overdueDays = Math.max(0, rs.getInt("overdue_days"));
                 int penaltyPerDay = Integer.parseInt(txtPenaltyPerDay.getText().trim());
                 int totalPenalty = overdueDays * penaltyPerDay;
 
-                // Update the issued book details and return the book
-                try (PreparedStatement deleteStmt = connection.prepareStatement(
+                try (PreparedStatement deleteIssued = connection.prepareStatement(
                         "DELETE FROM issued_book_details WHERE id = ?")) {
-                    deleteStmt.setInt(1, rs.getInt("id"));
-                    deleteStmt.executeUpdate();
-
-                    try (PreparedStatement updateBookStmt = connection.prepareStatement(
-                            "UPDATE books SET quantity = quantity + 1 WHERE book_id = ?")) {
-                        updateBookStmt.setInt(1, selectedRequest.getBookId());
-                        updateBookStmt.executeUpdate();
-                    }
-
-                    // Delete the return request
-                    try (PreparedStatement deleteRequestStmt = connection.prepareStatement(
-                            "DELETE FROM request_return WHERE id = ?")) {
-                        deleteRequestStmt.setInt(1, selectedRequest.getMemberId());
-                        deleteRequestStmt.executeUpdate();
-                    }
-
-                    showAlert(Alert.AlertType.INFORMATION, "Success", "Return request accepted and book returned successfully.\nPenalty: " + totalPenalty);
-                    loadReturnRequests(); // Refresh the return requests table
+                    deleteIssued.setInt(1, issuedId);
+                    deleteIssued.executeUpdate();
                 }
+
+                try (PreparedStatement updateBookStmt = connection.prepareStatement(
+                        "UPDATE books SET quantity = quantity + 1 WHERE book_id = ?")) {
+                    updateBookStmt.setInt(1, selectedRequest.getBookId());
+                    updateBookStmt.executeUpdate();
+                }
+
+                try (PreparedStatement deleteRequestStmt = connection.prepareStatement(
+                        "DELETE FROM request_return WHERE id = ?")) {
+                    deleteRequestStmt.setInt(1, selectedRequest.getRequestId());
+                    deleteRequestStmt.executeUpdate();
+                }
+
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Return processed. Penalty: " + totalPenalty);
+                loadReturnRequests();
             }
+
         } catch (SQLException | NumberFormatException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while processing the return request.");
         }
     }
 
-    private void showAlert(Alert.AlertType alertType, String title, String content) {
-        Alert alert = new Alert(alertType);
+    private void showAlert(Alert.AlertType type, String title, String msg) {
+        Alert alert = new Alert(type);
         alert.setTitle(title);
-        alert.setContentText(content);
+        alert.setContentText(msg);
         alert.showAndWait();
     }
 
-
-    // Inner classes for requests
     public static class IssueRequest {
         private final int memberId;
         private final String memberName;
@@ -323,35 +310,23 @@ public class ViewRequestsController {
             this.requestDate = requestDate;
         }
 
-        public int getMemberId() {
-            return memberId;
-        }
-
-        public String getMemberName() {
-            return memberName;
-        }
-
-        public int getBookId() {
-            return bookId;
-        }
-
-        public String getBookName() {
-            return bookName;
-        }
-
-        public String getRequestDate() {
-            return requestDate;
-        }
+        public int getMemberId() { return memberId; }
+        public String getMemberName() { return memberName; }
+        public int getBookId() { return bookId; }
+        public String getBookName() { return bookName; }
+        public String getRequestDate() { return requestDate; }
     }
 
     public static class ReturnRequest {
+        private final int requestId;
         private final int memberId;
         private final String memberName;
         private final int bookId;
         private final String bookName;
         private final String requestDate;
 
-        public ReturnRequest(int memberId, String memberName, int bookId, String bookName, String requestDate) {
+        public ReturnRequest(int requestId, int memberId, String memberName, int bookId, String bookName, String requestDate) {
+            this.requestId = requestId;
             this.memberId = memberId;
             this.memberName = memberName;
             this.bookId = bookId;
@@ -359,24 +334,11 @@ public class ViewRequestsController {
             this.requestDate = requestDate;
         }
 
-        public int getMemberId() {
-            return memberId;
-        }
-
-        public String getMemberName() {
-            return memberName;
-        }
-
-        public int getBookId() {
-            return bookId;
-        }
-
-        public String getBookName() {
-            return bookName;
-        }
-
-        public String getRequestDate() {
-            return requestDate;
-        }
+        public int getRequestId() { return requestId; }
+        public int getMemberId() { return memberId; }
+        public String getMemberName() { return memberName; }
+        public int getBookId() { return bookId; }
+        public String getBookName() { return bookName; }
+        public String getRequestDate() { return requestDate; }
     }
 }
