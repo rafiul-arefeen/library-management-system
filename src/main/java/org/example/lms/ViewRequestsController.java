@@ -245,6 +245,17 @@ public class ViewRequestsController {
             return;
         }
 
+        int penaltyPerDay = 0; // Default to zero
+        try {
+            String penaltyStr = txtPenaltyPerDay.getText().trim();
+            if (!penaltyStr.isEmpty()) {
+                penaltyPerDay = Integer.parseInt(penaltyStr);
+            }
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Invalid Input", "Penalty per day must be a valid number.");
+            return;
+        }
+
         try (Connection connection = DatabaseConnection.connect();
              PreparedStatement checkStmt = connection.prepareStatement(
                      "SELECT ibd.id, ibd.book_id, DATEDIFF(CURRENT_DATE, ibd.due_date) AS overdue_days " +
@@ -258,7 +269,6 @@ public class ViewRequestsController {
             if (rs.next()) {
                 int issuedId = rs.getInt("id");
                 int overdueDays = Math.max(0, rs.getInt("overdue_days"));
-                int penaltyPerDay = Integer.parseInt(txtPenaltyPerDay.getText().trim());
                 int totalPenalty = overdueDays * penaltyPerDay;
 
                 try (PreparedStatement deleteIssued = connection.prepareStatement(
@@ -283,11 +293,12 @@ public class ViewRequestsController {
                 loadReturnRequests();
             }
 
-        } catch (SQLException | NumberFormatException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while processing the return request.");
         }
     }
+
 
     private void showAlert(Alert.AlertType type, String title, String msg) {
         Alert alert = new Alert(type);

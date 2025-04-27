@@ -13,11 +13,6 @@ public class LibraTrackApp extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/example/lms/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 768);
 
-        // ✅ Fixed path with leading slash
-        scene.getStylesheets().add(
-                LibraTrackApp.class.getResource("/org/example/lms/style.css").toExternalForm()
-        );
-
         stage.setTitle("LibraTrack");
         stage.setScene(scene);
         stage.setResizable(false);
