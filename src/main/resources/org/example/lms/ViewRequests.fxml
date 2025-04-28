@@ -82,7 +82,7 @@
             </columnConstraints>
             <children>
                 <Label text="Penalty Per Day:" />
-                <TextField fx:id="txtPenaltyPerDay" editable="false" GridPane.columnIndex="1" />
+                <TextField fx:id="txtPenaltyPerDay" GridPane.columnIndex="1" />
 
                 <Label text="Overdue Days:" GridPane.rowIndex="1" />
                 <TextField fx:id="txtOverdueDays" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />

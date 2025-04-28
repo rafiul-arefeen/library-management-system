@@ -228,11 +228,14 @@ public class ViewRequestsController {
 
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Book issued successfully.");
                 loadIssueRequests();
+                btnAcceptIssue.setDisable(true);
 
             }
         } catch (SQLException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while processing the issue request.");
+
+
         }
     }
 
@@ -291,6 +294,8 @@ public class ViewRequestsController {
 
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Return processed. Penalty: " + totalPenalty);
                 loadReturnRequests();
+                btnAcceptReturn.setDisable(true);
+
             }
 
         } catch (SQLException e) {
