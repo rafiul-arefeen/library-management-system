@@ -20,14 +20,11 @@ public class AdminDashboardController {
     private AnchorPane contentArea;
 
     @FXML
-    private Label welcomeLabel;
-
     private Button activeButton = null; // Track the currently active button
 
     @FXML
     public void initialize() {
         String username = SessionManager.getUsername();
-        welcomeLabel.setText(username);
 
         loadPage("Homepage.fxml"); // Default to homepage on load
         highlightButton(btnHomepage);
@@ -72,12 +69,12 @@ public class AdminDashboardController {
 
     private void highlightButton(Button clickedButton) {
         if (activeButton != null) {
-            // Reset the previous active button's style
-            activeButton.setStyle("-fx-background-color: #e0e0e0; -fx-border-color: #bdbdbd;");
+            activeButton.getStyleClass().remove("active-button"); // Remove old active class
         }
 
-        // Set the clicked button as the active button
         activeButton = clickedButton;
-        activeButton.setStyle("-fx-background-color: #9ccc65; -fx-border-color: #7cb342; -fx-effect: innershadow(two-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 2);");
+        if (!activeButton.getStyleClass().contains("active-button")) {
+            activeButton.getStyleClass().add("active-button"); // Add active class
+        }
     }
 }

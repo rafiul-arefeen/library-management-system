@@ -10,16 +10,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.lms.LoginController" stylesheets="@style.css">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1280.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.lms.LoginController">
    <children>
-      <AnchorPane prefHeight="768.0" prefWidth="640.0" style="-fx-background-color: FCDC94;">
+      <AnchorPane prefHeight="768.0" prefWidth="640.0" style="-fx-background-color: grey;">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="239.0" layoutY="239.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="237.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../logo/logo.png" />
                </image>
             </ImageView>
-            <Label layoutX="147.0" layoutY="402.0" text="LibraTrack" textFill="#683b3b">
+            <Label layoutX="111.0" layoutY="404.0" text="LibraTrack" textFill="WHITE">
                <font>
                   <Font name="Carelia Upright" size="80.0" />
                </font>
@@ -28,34 +28,34 @@
       </AnchorPane>
       <AnchorPane prefHeight="768.0" prefWidth="640.0">
          <children>
-            <TextField fx:id="usernameField" layoutX="105.0" layoutY="323.0" prefHeight="54.0" prefWidth="460.0" promptText="Username" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0">
+            <TextField fx:id="usernameField" layoutX="105.0" layoutY="323.0" prefHeight="54.0" prefWidth="460.0" promptText="Username" style="-fx-font-size: 24;" stylesheets="@modern-textfield.css" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0">
                <font>
                   <Font name="Poppins Regular" size="24.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="passwordField" layoutX="105.0" layoutY="397.0" prefHeight="54.0" prefWidth="460.0" promptText="Password" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0">
+            <PasswordField fx:id="passwordField" layoutX="105.0" layoutY="397.0" prefHeight="54.0" prefWidth="460.0" promptText="Password" style="-fx-font-size: 24;" stylesheets="@modern-textfield.css" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0">
                <font>
                   <Font name="Poppins Regular" size="24.0" />
                </font>
             </PasswordField>
-            <Button layoutX="274.0" layoutY="472.0" mnemonicParsing="false" onAction="#onLoginButtonClick" text="Login">
+            <Button layoutX="274.0" layoutY="472.0" mnemonicParsing="false" onAction="#onLoginButtonClick" style="-fx-background-color: lightgreen;" stylesheets="@modern-button.css" text="Login">
                <font>
-                  <Font name="Poppins SemiBold" size="24.0" />
+                  <Font name="Helvetica Neue Condensed Black" size="24.0" />
                </font>
             </Button>
-            <Label layoutX="90.0" layoutY="121.0" text="Welcome Back!">
+            <Label layoutX="173.0" layoutY="222.0" text="Welcome Back!">
                <font>
-                  <Font name="Poppins Black" size="48.0" />
+                  <Font name="Helvetica Neue Condensed Black" size="48.0" />
                </font>
             </Label>
-            <Label layoutX="258.0" layoutY="619.0" text="Not a member?" textFill="#00000087">
+            <Label layoutX="270.0" layoutY="627.0" text="Not a member?" textFill="#00000087">
                <font>
-                  <Font name="Poppins SemiBold" size="18.0" />
+                  <Font name="Helvetica Neue Condensed Black" size="18.0" />
                </font>
             </Label>
-            <Button layoutX="262.0" layoutY="656.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" text="Join Us!">
+            <Button layoutX="266.0" layoutY="660.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" style="-fx-background-color: orange;" stylesheets="@modern-button.css" text="Join Us!">
                <font>
-                  <Font name="Poppins SemiBold" size="24.0" />
+                  <Font name="Helvetica Neue Condensed Black" size="24.0" />
                </font>
             </Button>
             <!-- Error Label to show when fields are empty -->

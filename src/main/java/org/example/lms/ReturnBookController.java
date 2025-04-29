@@ -41,6 +41,7 @@ public class ReturnBookController {
         txtBookId.textProperty().addListener((observable, oldValue, newValue) -> autoFillBookDetails());
 
         // Default overdue days and penalty
+        txtPenaltyPerDay.setText("10");
         txtOverdueDays.setText("0");
         txtTotalPenalty.setText("0");
     }

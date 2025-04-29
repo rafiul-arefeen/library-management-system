@@ -12,20 +12,20 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.lms.ManageMembersController" stylesheets="@style.css">
+<AnchorPane prefHeight="768.0" prefWidth="1000.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.lms.ManageMembersController">
     <children>
         <!-- Title Label -->
-        <Label layoutX="50.0" layoutY="20.0" style="-fx-font-size: 24px; -fx-text-fill: #2c3e50;" text="Manage Members">
+        <Label layoutX="50.0" layoutY="32.0" text="Manage Members">
             <font>
-                <Font name="Poppins Regular" size="24.0" />
+                <Font name="Helvetica Neue Condensed Black" size="24.0" />
             </font>
         </Label>
 
         <!-- Search Bar -->
-        <TextField fx:id="txtSearch" layoutX="50.0" layoutY="70.0" prefWidth="900.0" promptText="Search username, name, email, or phone..." />
+        <TextField fx:id="txtSearch" layoutX="50.0" layoutY="70.0" prefWidth="900.0" promptText="Search username, name, email, or phone..." stylesheets="@modern-textfield.css" />
 
         <!-- Table for Members -->
-        <TableView fx:id="tableMembers" layoutX="50.0" layoutY="120.0" prefHeight="400.0" prefWidth="900.0">
+        <TableView fx:id="tableMembers" layoutX="50.0" layoutY="120.0" prefHeight="400.0" prefWidth="900.0" stylesheets="@modern-tableview.css">
             <columns>
                 <TableColumn fx:id="colId" prefWidth="50" text="ID" />
                 <TableColumn fx:id="colUsername" prefWidth="150" text="Username" />
@@ -36,20 +36,47 @@
         </TableView>
 
         <!-- User Details Section -->
-        <Label layoutX="50.0" layoutY="540.0" style="-fx-font-size: 18px;" text="User Details" />
+        <Label layoutX="50.0" layoutY="540.0" text="Add/Update User">
+         <font>
+            <Font name="Helvetica Neue Condensed Black" size="23.0" />
+         </font></Label>
         <GridPane hgap="10" layoutX="50.0" layoutY="580.0" vgap="10">
             <children>
-                <Label text="Username:" />
-                <TextField fx:id="txtUsername" promptText="Enter username" GridPane.columnIndex="1" />
+                <Label text="Username:">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></Label>
+                <TextField fx:id="txtUsername" promptText="Enter username" GridPane.columnIndex="1">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></TextField>
 
-                <Label text="Name:" GridPane.rowIndex="1" />
-                <TextField fx:id="txtName" promptText="Enter name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="Name:" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></Label>
+                <TextField fx:id="txtName" promptText="Enter name" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></TextField>
 
-                <Label text="Email:" GridPane.rowIndex="2" />
-                <TextField fx:id="txtEmail" promptText="Enter email" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label text="Email:" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></Label>
+                <TextField fx:id="txtEmail" promptText="Enter email" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></TextField>
 
-                <Label text="Phone:" GridPane.rowIndex="3" />
-                <TextField fx:id="txtPhone" promptText="Enter phone number" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label text="Phone:" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></Label>
+                <TextField fx:id="txtPhone" promptText="Enter phone number" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></TextField>
             </children>
          <columnConstraints>
             <ColumnConstraints />
@@ -65,8 +92,17 @@
 
         <!-- Action Buttons -->
         <HBox layoutX="50.0" layoutY="680.0" spacing="10" />
-         <Button fx:id="btnAdd" layoutX="352.0" layoutY="680.0" onAction="#onAdd" text="Add" />
-         <Button fx:id="btnUpdate" layoutX="400.0" layoutY="680.0" onAction="#onUpdate" text="Update" />
-         <Button fx:id="btnDelete" layoutX="465.0" layoutY="680.0" onAction="#onDelete" text="Delete" />
+         <Button fx:id="btnAdd" layoutX="685.0" layoutY="673.0" onAction="#onAdd" style="-fx-background-color: lightgreen;" stylesheets="@modern-button.css" text="Add">
+         <font>
+            <Font name="Helvetica Neue Condensed Black" size="18.0" />
+         </font></Button>
+         <Button fx:id="btnUpdate" layoutX="763.0" layoutY="673.0" onAction="#onUpdate" style="-fx-background-color: yellow;" stylesheets="@modern-button.css" text="Update">
+         <font>
+            <Font name="Helvetica Neue Condensed Black" size="18.0" />
+         </font></Button>
+         <Button fx:id="btnDelete" layoutX="863.0" layoutY="673.0" onAction="#onDelete" style="-fx-background-color: orange;" stylesheets="@modern-button.css" text="Delete">
+         <font>
+            <Font name="Helvetica Neue Condensed Black" size="18.0" />
+         </font></Button>
     </children>
 </AnchorPane>

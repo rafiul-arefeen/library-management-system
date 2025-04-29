@@ -1,0 +1,33 @@
+/* File: modern-textfield.css */
+
+.text-field {
+    /* font from SceneBuilder or inline style will override */
+    -fx-font-family: "Helvetica Neue";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+
+    /* remove default background */
+    -fx-background-color: transparent;
+
+    /* underline style */
+    -fx-border-color: transparent transparent #9e9e9e transparent;
+    -fx-border-width: 0 0 2px 0;
+    -fx-background-insets: 0;
+    -fx-padding: 6px 0 6px 0;
+}
+
+.text-field:hover {
+    -fx-border-color: transparent transparent #757575 transparent;
+}
+
+.text-field:focused {
+    -fx-border-color: transparent transparent #3f51b5 transparent;
+}
+
+.text-field .text {
+    -fx-fill: #212121;
+}
+
+.text-field .prompt-text {
+    -fx-fill: #9e9e9e;
+}

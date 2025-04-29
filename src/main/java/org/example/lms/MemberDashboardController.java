@@ -43,7 +43,7 @@ public class MemberDashboardController {
         } else if (clickedButton == btnRequestIssue) {
             fxmlFile = "RequestIssue.fxml";
         } else if (clickedButton == btnRequestReturn) {
-            fxmlFile = "RequestReturn.fxml";
+            fxmlFile = "ReturnBook.fxml";
         } else if (clickedButton == btnLogout) {
             // Navigate to login screen on logout
             SceneSwitcher.switchScene(event, "login.fxml", "Login");

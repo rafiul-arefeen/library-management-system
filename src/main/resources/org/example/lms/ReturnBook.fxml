@@ -11,20 +11,20 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.lms.ReturnBookController" stylesheets="@style.css">
+<AnchorPane prefHeight="768.0" prefWidth="1000.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.lms.ReturnBookController">
     <children>
         <!-- Title Label -->
-        <Label layoutX="50.0" layoutY="20.0" style="-fx-font-size: 24px; -fx-text-fill: #2c3e50;" text="Return Books">
+        <Label layoutX="50.0" layoutY="32.0" text="Return Books">
             <font>
-                <Font name="Poppins Regular" size="24.0" />
+                <Font name="Helvetica Neue Condensed Black" size="24.0" />
             </font>
         </Label>
 
         <!-- Search Bar -->
-        <TextField fx:id="txtSearchIssuedBooks" layoutX="50.0" layoutY="70.0" prefWidth="900.0" promptText="Search by book name or member username..." />
+        <TextField fx:id="txtSearchIssuedBooks" layoutX="50.0" layoutY="70.0" prefWidth="900.0" promptText="Search by book name or member username..." stylesheets="@modern-textfield.css" />
 
         <!-- Issued Books Table -->
-        <TableView fx:id="tableIssuedBooks" layoutX="50.0" layoutY="120.0" prefHeight="235.0" prefWidth="900.0">
+        <TableView fx:id="tableIssuedBooks" layoutX="50.0" layoutY="120.0" prefHeight="300.0" prefWidth="900.0" stylesheets="@modern-tableview.css">
             <columns>
                 <TableColumn fx:id="colBookId" text="Book ID" />
                 <TableColumn fx:id="colBookName" prefWidth="200" text="Book Name" />
@@ -36,29 +36,74 @@
         </TableView>
 
         <!-- Book Details Section -->
-        <Label layoutX="50.0" layoutY="440.0" style="-fx-font-size: 18px;" text="Book Details" />
-        <GridPane hgap="10" layoutX="50.0" layoutY="480.0" vgap="10">
+        <Label layoutX="50.0" layoutY="446.0" text="Book Details">
+         <font>
+            <Font name="Helvetica Neue Condensed Black" size="24.0" />
+         </font></Label>
+        <GridPane hgap="10" layoutX="50.0" layoutY="486.0" vgap="10">
             <children>
-                <Label text="Book ID:" />
-                <TextField fx:id="txtBookId" promptText="Enter book ID" GridPane.columnIndex="1" />
+                <Label text="Book ID:">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></Label>
+                <TextField fx:id="txtBookId" promptText="Enter book ID" GridPane.columnIndex="1">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></TextField>
 
-                <Label text="Book Name:" GridPane.rowIndex="1" />
-                <TextField fx:id="txtBookName" editable="false" promptText="Enter book name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label text="Book Name:" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></Label>
+                <TextField fx:id="txtBookName" editable="false" promptText="Enter book name" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></TextField>
 
-                <Label text="Author:" GridPane.rowIndex="2" />
-                <TextField fx:id="txtBookAuthor" editable="false" promptText="Enter author name" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label text="Author:" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></Label>
+                <TextField fx:id="txtBookAuthor" editable="false" promptText="Enter author name" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></TextField>
 
-                <Label text="Category:" GridPane.rowIndex="3" />
-                <TextField fx:id="txtBookCategory" editable="false" promptText="Enter category" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label text="Category:" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></Label>
+                <TextField fx:id="txtBookCategory" editable="false" promptText="Enter category" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></TextField>
 
-                <Label text="Edition:" GridPane.rowIndex="4" />
-                <TextField fx:id="txtBookEdition" editable="false" promptText="Enter edition" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Label text="Edition:" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></Label>
+                <TextField fx:id="txtBookEdition" editable="false" promptText="Enter edition" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></TextField>
 
-                <Label text="Language:" GridPane.rowIndex="5" />
-                <TextField fx:id="txtBookLanguage" editable="false" promptText="Enter language" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <Label text="Language:" GridPane.rowIndex="5">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></Label>
+                <TextField fx:id="txtBookLanguage" editable="false" promptText="Enter language" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></TextField>
 
-                <Label text="Quantity:" GridPane.rowIndex="6" />
-                <TextField fx:id="txtBookQuantity" editable="false" promptText="Quantity available" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                <Label text="Quantity:" GridPane.rowIndex="6">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></Label>
+                <TextField fx:id="txtBookQuantity" editable="false" promptText="Quantity available" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <font>
+                  <Font name="Helvetica Neue Bold" size="13.0" />
+               </font></TextField>
             </children>
             <columnConstraints>
                 <ColumnConstraints />
@@ -76,31 +121,82 @@
         </GridPane>
 
         <!-- Member Details Section -->
-        <Label layoutX="347.0" layoutY="440.0" style="-fx-font-size: 18px;" text="Member Details" />
-          <Label layoutX="347.0" layoutY="499.0" text="Username:" />
-          <TextField fx:id="txtMemberUsername" layoutX="413.0" layoutY="495.0" promptText="Enter username" />
+        <Label layoutX="385.0" layoutY="447.0" text="Member Details">
+         <font>
+            <Font name="Helvetica Neue Condensed Black" size="24.0" />
+         </font></Label>
+          <Label layoutX="385.0" layoutY="492.0" text="Username:">
+         <font>
+            <Font name="Helvetica Neue Bold" size="13.0" />
+         </font></Label>
+          <TextField fx:id="txtMemberUsername" layoutX="459.0" layoutY="490.0" promptText="Enter username">
+         <font>
+            <Font name="Helvetica Neue Bold" size="13.0" />
+         </font></TextField>
 
-          <Label layoutX="347.0" layoutY="534.0" text="Name:" />
-          <TextField fx:id="txtMemberName" editable="false" layoutX="413.0" layoutY="530.0" promptText="Enter name" />
+          <Label layoutX="385.0" layoutY="527.0" text="Name:">
+         <font>
+            <Font name="Helvetica Neue Bold" size="13.0" />
+         </font></Label>
+          <TextField fx:id="txtMemberName" editable="false" layoutX="459.0" layoutY="525.0" promptText="Enter name">
+         <font>
+            <Font name="Helvetica Neue Bold" size="13.0" />
+         </font></TextField>
 
-          <Label layoutX="347.0" layoutY="569.0" text="Email:" />
-          <TextField fx:id="txtMemberEmail" editable="false" layoutX="413.0" layoutY="565.0" promptText="Enter email" />
+          <Label layoutX="385.0" layoutY="562.0" text="Email:">
+         <font>
+            <Font name="Helvetica Neue Bold" size="13.0" />
+         </font></Label>
+          <TextField fx:id="txtMemberEmail" editable="false" layoutX="459.0" layoutY="560.0" promptText="Enter email">
+         <font>
+            <Font name="Helvetica Neue Bold" size="13.0" />
+         </font></TextField>
 
-          <Label layoutX="347.0" layoutY="604.0" text="Phone:" />
-          <TextField fx:id="txtMemberPhone" editable="false" layoutX="413.0" layoutY="600.0" promptText="Enter phone" />
+          <Label layoutX="385.0" layoutY="597.0" text="Phone:">
+         <font>
+            <Font name="Helvetica Neue Bold" size="13.0" />
+         </font></Label>
+          <TextField fx:id="txtMemberPhone" editable="false" layoutX="459.0" layoutY="595.0" promptText="Enter phone">
+         <font>
+            <Font name="Helvetica Neue Bold" size="13.0" />
+         </font></TextField>
 
         <!-- Penalty Section -->
-        <Label layoutX="657.0" layoutY="440.0" style="-fx-font-size: 18px;" text="Penalty Details" />
-          <Label layoutX="657.0" layoutY="508.0" text="Penalty per Day:" />
-          <TextField fx:id="txtPenaltyPerDay" layoutX="753.0" layoutY="504.0" promptText="Enter penalty per day" />
+        <Label layoutX="685.0" layoutY="447.0" text="Penalty Details">
+         <font>
+            <Font name="Helvetica Neue Condensed Black" size="24.0" />
+         </font></Label>
+          <Label layoutX="685.0" layoutY="492.0" text="Penalty per Day:">
+         <font>
+            <Font name="Helvetica Neue Bold" size="13.0" />
+         </font></Label>
+          <TextField fx:id="txtPenaltyPerDay" layoutX="795.0" layoutY="488.0" promptText="Enter penalty per day">
+         <font>
+            <Font name="Helvetica Neue Bold" size="13.0" />
+         </font></TextField>
 
-          <Label layoutX="657.0" layoutY="543.0" text="Overdue Days:" />
-          <TextField fx:id="txtOverdueDays" editable="false" layoutX="753.0" layoutY="539.0" promptText="Number of overdue days" />
+          <Label layoutX="685.0" layoutY="527.0" text="Overdue Days:">
+         <font>
+            <Font name="Helvetica Neue Bold" size="13.0" />
+         </font></Label>
+          <TextField fx:id="txtOverdueDays" editable="false" layoutX="795.0" layoutY="523.0" promptText="Number of overdue days">
+         <font>
+            <Font name="Helvetica Neue Bold" size="13.0" />
+         </font></TextField>
 
-          <Label layoutX="657.0" layoutY="578.0" text="Total Penalty:" />
-          <TextField fx:id="txtTotalPenalty" editable="false" layoutX="753.0" layoutY="574.0" promptText="Total penalty amount" />
+          <Label layoutX="685.0" layoutY="562.0" text="Total Penalty:">
+         <font>
+            <Font name="Helvetica Neue Bold" size="13.0" />
+         </font></Label>
+          <TextField fx:id="txtTotalPenalty" editable="false" layoutX="795.0" layoutY="558.0" promptText="Total penalty amount">
+         <font>
+            <Font name="Helvetica Neue Bold" size="13.0" />
+         </font></TextField>
 
         <!-- Return Button -->
-        <Button fx:id="btnReturnBook" layoutX="850.0" layoutY="720.0" onAction="#onReturnBook" text="Return Book" />
+        <Button fx:id="btnReturnBook" layoutX="826.0" layoutY="677.0" onAction="#onReturnBook" style="-fx-background-color: skyblue;" stylesheets="@modern-button.css" text="Return Book">
+         <font>
+            <Font name="Helvetica Neue Condensed Black" size="18.0" />
+         </font></Button>
     </children>
 </AnchorPane>

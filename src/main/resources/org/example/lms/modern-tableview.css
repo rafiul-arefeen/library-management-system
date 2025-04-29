@@ -1,0 +1,57 @@
+/* modern-tableview.css */
+
+/* 1. Base table styles */
+.table-view {
+    -fx-font-family: "Helvetica Neue";
+    -fx-font-size: 14px;            /* keep your font size */
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1px;
+
+    /* remove default cell borders */
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+
+    /* no focus highlight */
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* 2. Header background & border */
+.table-view .column-header-background {
+    -fx-background-color: #f5f5f5;
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: transparent transparent #e0e0e0 transparent;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 6px;               /* slightly tighter than before */
+}
+
+/* 3. Bold headers */
+.table-view .column-header .label {
+    -fx-text-fill: #424242;
+    -fx-font-weight: bold;          /* make header text bold */
+    -fx-font-size: 13px;
+    -fx-alignment: CENTER-LEFT;
+}
+
+/* 4. Cells: reduced padding & bold text */
+.table-view .cell {
+    -fx-padding: 4px 8px;           /* less vertical space */
+    -fx-text-fill: #212121;
+    -fx-font-weight: bold;          /* bold cell text */
+}
+
+/* 5. Alternate row shading */
+.table-row-cell:odd {
+    -fx-background-color: #fafafa;
+}
+
+/* 6. Selected/focused row */
+.table-row-cell:selected,
+.table-cell:focused {
+    -fx-background-color: #e0e0e0;
+}

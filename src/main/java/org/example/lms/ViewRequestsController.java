@@ -16,9 +16,9 @@ public class ViewRequestsController {
     @FXML private TableColumn<IssueRequest, Integer> colIssueMemberId, colIssueBookId;
     @FXML private TableColumn<IssueRequest, String> colIssueMemberName, colIssueBookName, colIssueRequestDate;
 
-    @FXML private TableView<ReturnRequest> tableReturnRequests;
-    @FXML private TableColumn<ReturnRequest, Integer> colReturnMemberId, colReturnBookId;
-    @FXML private TableColumn<ReturnRequest, String> colReturnMemberName, colReturnBookName, colReturnRequestDate;
+//    @FXML private TableView<ReturnRequest> tableReturnRequests;
+//    @FXML private TableColumn<ReturnRequest, Integer> colReturnMemberId, colReturnBookId;
+//    @FXML private TableColumn<ReturnRequest, String> colReturnMemberName, colReturnBookName, colReturnRequestDate;
 
     @FXML private TextField txtMemberName, txtMemberEmail, txtMemberPhone;
     @FXML private TextField txtBookName, txtBookAuthor;
@@ -27,14 +27,14 @@ public class ViewRequestsController {
     @FXML private Button btnAcceptIssue, btnAcceptReturn;
 
     private ObservableList<IssueRequest> issueRequestsList = FXCollections.observableArrayList();
-    private ObservableList<ReturnRequest> returnRequestsList = FXCollections.observableArrayList();
+    //private ObservableList<ReturnRequest> returnRequestsList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
         setupIssueRequestsTable();
-        setupReturnRequestsTable();
+        //setupReturnRequestsTable();
         loadIssueRequests();
-        loadReturnRequests();
+        //loadReturnRequests();
 
         tableIssueRequests.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
@@ -43,12 +43,12 @@ public class ViewRequestsController {
             }
         });
 
-        tableReturnRequests.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
-                fillDetailsFromReturnRequest(newVal);
-                toggleButtons("return");
-            }
-        });
+//        tableReturnRequests.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+//            if (newVal != null) {
+//                fillDetailsFromReturnRequest(newVal);
+//                toggleButtons("return");
+//            }
+//        });
 
         txtPenaltyPerDay.textProperty().addListener((obs, oldVal, newVal) -> calculatePenalty());
     }
@@ -63,15 +63,15 @@ public class ViewRequestsController {
         tableIssueRequests.setItems(issueRequestsList);
     }
 
-    private void setupReturnRequestsTable() {
-        colReturnMemberId.setCellValueFactory(new PropertyValueFactory<>("memberId"));
-        colReturnMemberName.setCellValueFactory(new PropertyValueFactory<>("memberName"));
-        colReturnBookId.setCellValueFactory(new PropertyValueFactory<>("bookId"));
-        colReturnBookName.setCellValueFactory(new PropertyValueFactory<>("bookName"));
-        colReturnRequestDate.setCellValueFactory(new PropertyValueFactory<>("requestDate"));
-
-        tableReturnRequests.setItems(returnRequestsList);
-    }
+//    private void setupReturnRequestsTable() {
+//        colReturnMemberId.setCellValueFactory(new PropertyValueFactory<>("memberId"));
+//        colReturnMemberName.setCellValueFactory(new PropertyValueFactory<>("memberName"));
+//        colReturnBookId.setCellValueFactory(new PropertyValueFactory<>("bookId"));
+//        colReturnBookName.setCellValueFactory(new PropertyValueFactory<>("bookName"));
+//        colReturnRequestDate.setCellValueFactory(new PropertyValueFactory<>("requestDate"));
+//
+//        tableReturnRequests.setItems(returnRequestsList);
+//    }
 
     private void loadIssueRequests() {
         issueRequestsList.clear();
@@ -97,32 +97,32 @@ public class ViewRequestsController {
         }
     }
 
-    private void loadReturnRequests() {
-        returnRequestsList.clear();
-        try (Connection connection = DatabaseConnection.connect();
-             PreparedStatement stmt = connection.prepareStatement(
-                     "SELECT rr.id AS request_id, rr.member_id, u.name AS member_name, ibd.book_id, b.book_name, rr.request_date " +
-                             "FROM request_return rr " +
-                             "JOIN users u ON rr.member_id = u.user_id " +
-                             "JOIN issued_book_details ibd ON rr.issued_id = ibd.id " +
-                             "JOIN books b ON ibd.book_id = b.book_id")) {
-
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                returnRequestsList.add(new ReturnRequest(
-                        rs.getInt("request_id"),
-                        rs.getInt("member_id"),
-                        rs.getString("member_name"),
-                        rs.getInt("book_id"),
-                        rs.getString("book_name"),
-                        rs.getString("request_date")
-                ));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void loadReturnRequests() {
+//        returnRequestsList.clear();
+//        try (Connection connection = DatabaseConnection.connect();
+//             PreparedStatement stmt = connection.prepareStatement(
+//                     "SELECT rr.id AS request_id, rr.member_id, u.name AS member_name, ibd.book_id, b.book_name, rr.request_date " +
+//                             "FROM request_return rr " +
+//                             "JOIN users u ON rr.member_id = u.user_id " +
+//                             "JOIN issued_book_details ibd ON rr.issued_id = ibd.id " +
+//                             "JOIN books b ON ibd.book_id = b.book_id")) {
+//
+//            ResultSet rs = stmt.executeQuery();
+//            while (rs.next()) {
+//                returnRequestsList.add(new ReturnRequest(
+//                        rs.getInt("request_id"),
+//                        rs.getInt("member_id"),
+//                        rs.getString("member_name"),
+//                        rs.getInt("book_id"),
+//                        rs.getString("book_name"),
+//                        rs.getString("request_date")
+//                ));
+//            }
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void fillDetailsFromIssueRequest(IssueRequest request) {
         txtMemberName.setText(request.getMemberName());
@@ -239,70 +239,70 @@ public class ViewRequestsController {
         }
     }
 
-    @FXML
-    private void onAcceptReturn(ActionEvent event) {
-        ReturnRequest selectedRequest = tableReturnRequests.getSelectionModel().getSelectedItem();
-
-        if (selectedRequest == null) {
-            showAlert(Alert.AlertType.ERROR, "No Request Selected", "Please select a return request to proceed.");
-            return;
-        }
-
-        int penaltyPerDay = 0; // Default to zero
-        try {
-            String penaltyStr = txtPenaltyPerDay.getText().trim();
-            if (!penaltyStr.isEmpty()) {
-                penaltyPerDay = Integer.parseInt(penaltyStr);
-            }
-        } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Invalid Input", "Penalty per day must be a valid number.");
-            return;
-        }
-
-        try (Connection connection = DatabaseConnection.connect();
-             PreparedStatement checkStmt = connection.prepareStatement(
-                     "SELECT ibd.id, ibd.book_id, DATEDIFF(CURRENT_DATE, ibd.due_date) AS overdue_days " +
-                             "FROM issued_book_details ibd " +
-                             "WHERE ibd.book_id = ? AND ibd.member_id = ?")) {
-
-            checkStmt.setInt(1, selectedRequest.getBookId());
-            checkStmt.setInt(2, selectedRequest.getMemberId());
-            ResultSet rs = checkStmt.executeQuery();
-
-            if (rs.next()) {
-                int issuedId = rs.getInt("id");
-                int overdueDays = Math.max(0, rs.getInt("overdue_days"));
-                int totalPenalty = overdueDays * penaltyPerDay;
-
-                try (PreparedStatement deleteIssued = connection.prepareStatement(
-                        "DELETE FROM issued_book_details WHERE id = ?")) {
-                    deleteIssued.setInt(1, issuedId);
-                    deleteIssued.executeUpdate();
-                }
-
-                try (PreparedStatement updateBookStmt = connection.prepareStatement(
-                        "UPDATE books SET quantity = quantity + 1 WHERE book_id = ?")) {
-                    updateBookStmt.setInt(1, selectedRequest.getBookId());
-                    updateBookStmt.executeUpdate();
-                }
-
-                try (PreparedStatement deleteRequestStmt = connection.prepareStatement(
-                        "DELETE FROM request_return WHERE id = ?")) {
-                    deleteRequestStmt.setInt(1, selectedRequest.getRequestId());
-                    deleteRequestStmt.executeUpdate();
-                }
-
-                showAlert(Alert.AlertType.INFORMATION, "Success", "Return processed. Penalty: " + totalPenalty);
-                loadReturnRequests();
-                btnAcceptReturn.setDisable(true);
-
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while processing the return request.");
-        }
-    }
+//    @FXML
+//    private void onAcceptReturn(ActionEvent event) {
+//        ReturnRequest selectedRequest = tableReturnRequests.getSelectionModel().getSelectedItem();
+//
+//        if (selectedRequest == null) {
+//            showAlert(Alert.AlertType.ERROR, "No Request Selected", "Please select a return request to proceed.");
+//            return;
+//        }
+//
+//        int penaltyPerDay = 0; // Default to zero
+//        try {
+//            String penaltyStr = txtPenaltyPerDay.getText().trim();
+//            if (!penaltyStr.isEmpty()) {
+//                penaltyPerDay = Integer.parseInt(penaltyStr);
+//            }
+//        } catch (NumberFormatException e) {
+//            showAlert(Alert.AlertType.ERROR, "Invalid Input", "Penalty per day must be a valid number.");
+//            return;
+//        }
+//
+//        try (Connection connection = DatabaseConnection.connect();
+//             PreparedStatement checkStmt = connection.prepareStatement(
+//                     "SELECT ibd.id, ibd.book_id, DATEDIFF(CURRENT_DATE, ibd.due_date) AS overdue_days " +
+//                             "FROM issued_book_details ibd " +
+//                             "WHERE ibd.book_id = ? AND ibd.member_id = ?")) {
+//
+//            checkStmt.setInt(1, selectedRequest.getBookId());
+//            checkStmt.setInt(2, selectedRequest.getMemberId());
+//            ResultSet rs = checkStmt.executeQuery();
+//
+//            if (rs.next()) {
+//                int issuedId = rs.getInt("id");
+//                int overdueDays = Math.max(0, rs.getInt("overdue_days"));
+//                int totalPenalty = overdueDays * penaltyPerDay;
+//
+//                try (PreparedStatement deleteIssued = connection.prepareStatement(
+//                        "DELETE FROM issued_book_details WHERE id = ?")) {
+//                    deleteIssued.setInt(1, issuedId);
+//                    deleteIssued.executeUpdate();
+//                }
+//
+//                try (PreparedStatement updateBookStmt = connection.prepareStatement(
+//                        "UPDATE books SET quantity = quantity + 1 WHERE book_id = ?")) {
+//                    updateBookStmt.setInt(1, selectedRequest.getBookId());
+//                    updateBookStmt.executeUpdate();
+//                }
+//
+//                try (PreparedStatement deleteRequestStmt = connection.prepareStatement(
+//                        "DELETE FROM request_return WHERE id = ?")) {
+//                    deleteRequestStmt.setInt(1, selectedRequest.getRequestId());
+//                    deleteRequestStmt.executeUpdate();
+//                }
+//
+//                showAlert(Alert.AlertType.INFORMATION, "Success", "Return processed. Penalty: " + totalPenalty);
+//                //loadReturnRequests();
+//                btnAcceptReturn.setDisable(true);
+//
+//            }
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while processing the return request.");
+//        }
+//    }
 
 
     private void showAlert(Alert.AlertType type, String title, String msg) {
