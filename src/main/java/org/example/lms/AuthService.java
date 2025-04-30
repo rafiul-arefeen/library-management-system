@@ -7,13 +7,7 @@ import java.sql.ResultSet;
 public class AuthService {
     private String query = "SELECT password_hash, isAdmin FROM users WHERE username = ?";
 
-    /**
-     * Authenticates a user and retrieves their role.
-     *
-     * @param username the username of the user
-     * @param password the password provided by the user
-     * @return "admin" if the user is an admin, "user" if a regular user, or null if authentication fails
-     */
+
     public String authenticate(String username, String password) {
         try (Connection connection = DatabaseConnection.connect();
              PreparedStatement stmnt = connection.prepareStatement(query)) {

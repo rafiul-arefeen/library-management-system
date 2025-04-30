@@ -22,9 +22,9 @@ public class ViewRequestsController {
 
     @FXML private TextField txtMemberName, txtMemberEmail, txtMemberPhone;
     @FXML private TextField txtBookName, txtBookAuthor;
-    @FXML private TextField txtPenaltyPerDay, txtOverdueDays, txtTotalPenalty;
+    //@FXML private TextField txtPenaltyPerDay, txtOverdueDays, txtTotalPenalty;
 
-    @FXML private Button btnAcceptIssue, btnAcceptReturn;
+    @FXML private Button btnAcceptIssue;
 
     private ObservableList<IssueRequest> issueRequestsList = FXCollections.observableArrayList();
     //private ObservableList<ReturnRequest> returnRequestsList = FXCollections.observableArrayList();
@@ -50,7 +50,7 @@ public class ViewRequestsController {
 //            }
 //        });
 
-        txtPenaltyPerDay.textProperty().addListener((obs, oldVal, newVal) -> calculatePenalty());
+        //txtPenaltyPerDay.textProperty().addListener((obs, oldVal, newVal) -> calculatePenalty());
     }
 
     private void setupIssueRequestsTable() {
@@ -127,61 +127,61 @@ public class ViewRequestsController {
     private void fillDetailsFromIssueRequest(IssueRequest request) {
         txtMemberName.setText(request.getMemberName());
         txtBookName.setText(request.getBookName());
-        clearPenaltyFields();
+        //clearPenaltyFields();
     }
 
     private void fillDetailsFromReturnRequest(ReturnRequest request) {
         txtMemberName.setText(request.getMemberName());
         txtBookName.setText(request.getBookName());
-        calculatePenaltyForReturn(request);
+        //calculatePenaltyForReturn(request);
     }
 
-    private void calculatePenaltyForReturn(ReturnRequest request) {
-        try (Connection connection = DatabaseConnection.connect();
-             PreparedStatement stmt = connection.prepareStatement(
-                     "SELECT DATEDIFF(CURDATE(), ibd.due_date) AS overdue_days " +
-                             "FROM issued_book_details ibd " +
-                             "WHERE ibd.book_id = ? AND ibd.member_id = ?")) {
+//    private void calculatePenaltyForReturn(ReturnRequest request) {
+//        try (Connection connection = DatabaseConnection.connect();
+//             PreparedStatement stmt = connection.prepareStatement(
+//                     "SELECT DATEDIFF(CURDATE(), ibd.due_date) AS overdue_days " +
+//                             "FROM issued_book_details ibd " +
+//                             "WHERE ibd.book_id = ? AND ibd.member_id = ?")) {
+//
+//            stmt.setInt(1, request.getBookId());
+//            stmt.setInt(2, request.getMemberId());
+//
+//            ResultSet rs = stmt.executeQuery();
+//            if (rs.next()) {
+//                int overdueDays = Math.max(0, rs.getInt("overdue_days"));
+//                txtOverdueDays.setText(String.valueOf(overdueDays));
+//                calculatePenalty();
+//            } else {
+//                txtOverdueDays.setText("0");
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-            stmt.setInt(1, request.getBookId());
-            stmt.setInt(2, request.getMemberId());
-
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                int overdueDays = Math.max(0, rs.getInt("overdue_days"));
-                txtOverdueDays.setText(String.valueOf(overdueDays));
-                calculatePenalty();
-            } else {
-                txtOverdueDays.setText("0");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void calculatePenalty() {
-        try {
-            int overdueDays = Integer.parseInt(txtOverdueDays.getText().trim());
-            int penaltyPerDay = Integer.parseInt(txtPenaltyPerDay.getText().trim());
-            txtTotalPenalty.setText(String.valueOf(overdueDays * penaltyPerDay));
-        } catch (NumberFormatException e) {
-            txtTotalPenalty.setText("0");
-        }
-    }
-
-    private void clearPenaltyFields() {
-        txtPenaltyPerDay.clear();
-        txtOverdueDays.clear();
-        txtTotalPenalty.clear();
-    }
+//    private void calculatePenalty() {
+//        try {
+//            int overdueDays = Integer.parseInt(txtOverdueDays.getText().trim());
+//            int penaltyPerDay = Integer.parseInt(txtPenaltyPerDay.getText().trim());
+//            txtTotalPenalty.setText(String.valueOf(overdueDays * penaltyPerDay));
+//        } catch (NumberFormatException e) {
+//            txtTotalPenalty.setText("0");
+//        }
+//    }
+//
+//    private void clearPenaltyFields() {
+//        txtPenaltyPerDay.clear();
+//        txtOverdueDays.clear();
+//        txtTotalPenalty.clear();
+//    }
 
     private void toggleButtons(String type) {
         boolean isIssue = type.equals("issue");
         btnAcceptIssue.setDisable(!isIssue);
-        btnAcceptReturn.setDisable(isIssue);
-        txtPenaltyPerDay.setDisable(isIssue);
-        txtOverdueDays.setDisable(isIssue);
-        txtTotalPenalty.setDisable(isIssue);
+        //btnAcceptReturn.setDisable(isIssue);
+//        txtPenaltyPerDay.setDisable(isIssue);
+//        txtOverdueDays.setDisable(isIssue);
+//        txtTotalPenalty.setDisable(isIssue);
     }
 
     @FXML
@@ -213,11 +213,11 @@ public class ViewRequestsController {
                 issueStmt.setInt(2, selectedRequest.getMemberId());
                 issueStmt.executeUpdate();
 
-                try (PreparedStatement updateBookStmt = connection.prepareStatement(
-                        "UPDATE books SET quantity = quantity - 1 WHERE book_id = ?")) {
-                    updateBookStmt.setInt(1, selectedRequest.getBookId());
-                    updateBookStmt.executeUpdate();
-                }
+//                try (PreparedStatement updateBookStmt = connection.prepareStatement(
+//                        "UPDATE books SET quantity = quantity - 1 WHERE book_id = ?")) {
+//                    updateBookStmt.setInt(1, selectedRequest.getBookId());
+//                    updateBookStmt.executeUpdate();
+//                }
 
                 try (PreparedStatement deleteRequestStmt = connection.prepareStatement(
                         "DELETE FROM request_issue WHERE member_id = ? AND book_id = ?")) {

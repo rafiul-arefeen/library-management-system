@@ -194,7 +194,7 @@
          </font></TextField>
 
         <!-- Return Button -->
-        <Button fx:id="btnReturnBook" layoutX="826.0" layoutY="677.0" onAction="#onReturnBook" style="-fx-background-color: skyblue;" stylesheets="@modern-button.css" text="Return Book">
+        <Button fx:id="btnReturnBook" layoutX="747.0" layoutY="678.0" onAction="#onReturnBook" style="-fx-background-color: skyblue;" stylesheets="@modern-button.css" text="Accept Return Request">
          <font>
             <Font name="Helvetica Neue Condensed Black" size="18.0" />
          </font></Button>

@@ -96,51 +96,6 @@
             </children>
         </GridPane>
 
-        <!-- Penalty Fields -->
-        <Label layoutX="385.0" layoutY="518.0" text="Penalty">
-         <font>
-            <Font name="Helvetica Neue Condensed Black" size="24.0" />
-         </font></Label>
-        <GridPane hgap="10" layoutX="385.0" layoutY="565.0" vgap="10">
-            <columnConstraints>
-                <ColumnConstraints />
-                <ColumnConstraints />
-            </columnConstraints>
-            <children>
-                <Label text="Penalty Per Day:">
-               <font>
-                  <Font name="Helvetica Neue Bold" size="13.0" />
-               </font></Label>
-                <TextField fx:id="txtPenaltyPerDay" GridPane.columnIndex="1">
-               <font>
-                  <Font name="Helvetica Neue Bold" size="13.0" />
-               </font></TextField>
-
-                <Label text="Overdue Days:" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Helvetica Neue Bold" size="13.0" />
-               </font></Label>
-                <TextField fx:id="txtOverdueDays" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Helvetica Neue Bold" size="13.0" />
-               </font></TextField>
-
-                <Label text="Total Penalty:" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Helvetica Neue Bold" size="13.0" />
-               </font></Label>
-                <TextField fx:id="txtTotalPenalty" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Helvetica Neue Bold" size="13.0" />
-               </font></TextField>
-            </children>
-         <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-         </rowConstraints>
-        </GridPane>
-
         <!-- Action Buttons -->
         <Button fx:id="btnAcceptIssue" disable="true" layoutX="769.0" layoutY="682.0" onAction="#onAcceptIssue" style="-fx-background-color: lightgreen;" stylesheets="@modern-button.css" text="Accept Issue Request">
          <font>
